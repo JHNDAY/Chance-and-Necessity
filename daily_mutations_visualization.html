@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Daily Dance of Mutations and Repairs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c1810 0%, #8b4513 30%, #654321 70%, #3e2723 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(45deg, #ff4757, #ff6348, #ff7675);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(255, 71, 87, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #dda0dd;
+            font-style: italic;
+        }
+        
+        .main-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255, 71, 87, 0.2), rgba(255, 99, 72, 0.1));
+            border: 2px solid rgba(255, 71, 87, 0.4);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 4s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #ff4757;
+            margin: 10px 0;
+            text-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
+        }
+        
+        .stat-label {
+            font-size: 1.2em;
+            color: #dda0dd;
+            margin-bottom: 15px;
+        }
+        
+        .stat-detail {
+            color: #f0f0f0;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        .mutation-types {
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.3), rgba(101, 67, 33, 0.3));
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2em;
+            color: #dda0dd;
+            margin-bottom: 30px;
+        }
+        
+        .mutation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .mutation-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .mutation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 71, 87, 0.5);
+        }
+        
+        .mutation-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .mutation-name {
+            font-size: 1.3em;
+            color: #ff6348;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .mutation-count {
+            font-size: 1.6em;
+            color: #ff4757;
+            margin: 10px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .mutation-details {
+            color: #dda0dd;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        .repair-reality {
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.3), rgba(0, 100, 0, 0.3));
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .repair-visual {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .repair-bar {
+            flex: 1;
+            min-width: 200px;
+            margin: 10px;
+        }
+        
+        .repair-label {
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .bar-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            height: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            position: relative;
+            transition: width 2s ease;
+        }
+        
+        .repair-fill {
+            background: linear-gradient(90deg, #00ff7f, #32cd32);
+            width: 99%;
+        }
+        
+        .permanent-fill {
+            background: linear-gradient(90deg, #ff4757, #ff6348);
+            width: 1%;
+        }
+        
+        .bar-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+        
+        .permanent-fill .bar-text {
+            font-size: 0.7em;
+            left: 200%;
+            color: #ff4757;
+        }
+        
+        .comparison-section {
+            background: linear-gradient(135deg, rgba(75, 0, 130, 0.3), rgba(138, 43, 226, 0.3));
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .comparison-visual {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .comparison-item {
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            min-width: 200px;
+        }
+        
+        .comparison-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .synthesis-number {
+            color: #00d4ff;
+        }
+        
+        .mutation-number {
+            color: #ff4757;
+        }
+        
+        .vs-symbol {
+            font-size: 4em;
+            color: #dda0dd;
+            margin: 0 20px;
+        }
+        
+        .monod-connection {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.1));
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .monod-connection h2 {
+            color: #FFD700;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+        
+        .monod-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #f0f8ff;
+        }
+        
+        .quote {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #ff4757;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+        }
+        
+        .dna-helix {
+            position: fixed;
+            right: -50px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 8em;
+            color: rgba(255, 71, 87, 0.1);
+            z-index: 1;
+            animation: rotate 20s infinite linear;
+        }
+        
+        @keyframes rotate {
+            from { transform: translateY(-50%) rotate(0deg); }
+            to { transform: translateY(-50%) rotate(360deg); }
+        }
+        
+        .floating-damage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .damage-particle {
+            position: absolute;
+            color: rgba(255, 71, 87, 0.4);
+            font-size: 1.2em;
+            animation: damage-float 8s infinite linear;
+        }
+        
+        @keyframes damage-float {
+            from {
+                transform: translate(0, 100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            to {
+                transform: translate(200px, -100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .comparison-visual {
+                flex-direction: column;
+            }
+            
+            .vs-symbol {
+                font-size: 2em;
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-damage"></div>
+    <div class="dna-helix">🧬</div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>⚡ Daily Mutations in Your Body</h1>
+            <p class="subtitle">The constant dance between damage and repair that drives evolution</p>
+        </div>
+        
+        <div class="main-stats">
+            <div class="stat-card">
+                <div class="stat-number">10⁷-10⁸</div>
+                <div class="stat-label">Total Mutations Daily</div>
+                <div class="stat-detail">10-100 million random genetic changes occur in your body every single day</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number">10⁴-10⁵</div>
+                <div class="stat-label">Permanent Mutations Daily</div>
+                <div class="stat-detail">10,000-100,000 mutations escape repair and become permanent changes</div>
+            </div>
+        </div>
+        
+        <div class="mutation-types">
+            <div class="section-title">🎯 Sources of Daily Mutations</div>
+            <div class="mutation-grid">
+                <div class="mutation-card">
+                    <div class="mutation-icon">🔄</div>
+                    <div class="mutation-name">DNA Replication Errors</div>
+                    <div class="mutation-count">60-600</div>
+                    <div class="mutation-details">
+                        During cell division in ~10¹¹ dividing cells<br>
+                        Error rate: ~10⁻⁹ per base pair<br>
+                        After proofreading mechanisms
+                    </div>
+                </div>
+                
+                <div class="mutation-card">
+                    <div class="mutation-icon">💥</div>
+                    <div class="mutation-name">Spontaneous DNA Damage</div>
+                    <div class="mutation-count">10⁷-10⁸</div>
+                    <div class="mutation-details">
+                        Deamination: 100-500 per cell/day<br>
+                        Depurination: ~10,000 per cell/day<br>
+                        Oxidative damage: 10,000-100,000 per cell/day
+                    </div>
+                </div>
+                
+                <div class="mutation-card">
+                    <div class="mutation-icon">☢️</div>
+                    <div class="mutation-name">Environmental Mutagens</div>
+                    <div class="mutation-count">10³-10⁴</div>
+                    <div class="mutation-details">
+                        UV radiation from sunlight<br>
+                        Cosmic rays and background radiation<br>
+                        Chemical mutagens in environment
+                    </div>
+                </div>
+                
+                <div class="mutation-card">
+                    <div class="mutation-icon">🧠</div>
+                    <div class="mutation-name">Somatic Cell Mutations</div>
+                    <div class="mutation-count">~10⁶</div>
+                    <div class="mutation-details">
+                        In non-dividing cells<br>
+                        Neurons, muscle cells<br>
+                        Lower rate but billions of cells
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="repair-reality">
+            <div class="section-title">🛠️ The Repair Reality</div>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 1.1em; color: #f0f0f0;">
+                Your cellular repair systems fix over 99% of all DNA damage
+            </p>
+            
+            <div class="repair-visual">
+                <div class="repair-bar">
+                    <div class="repair-label" style="color: #00ff7f;">Repaired (>99%)</div>
+                    <div class="bar-container">
+                        <div class="bar-fill repair-fill">
+                            <div class="bar-text">DNA Repair Systems</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="repair-bar">
+                    <div class="repair-label" style="color: #ff4757;">Permanent (<1%)</div>
+                    <div class="bar-container">
+                        <div class="bar-fill permanent-fill">
+                            <div class="bar-text">Mutations</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px; color: #dda0dd;">
+                <p><strong>Repair Mechanisms:</strong> Mismatch repair • Base excision repair • Nucleotide excision repair • Homologous recombination</p>
+            </div>
+        </div>
+        
+        <div class="comparison-section">
+            <div class="section-title">⚖️ The Great Contrast</div>
+            <div class="comparison-visual">
+                <div class="comparison-item">
+                    <div class="comparison-number synthesis-number">10²²</div>
+                    <div>Precise Molecular<br>Syntheses Daily</div>
+                    <div style="margin-top: 10px; color: #87CEEB;">Perfect fidelity</div>
+                </div>
+                
+                <div class="vs-symbol">VS</div>
+                
+                <div class="comparison-item">
+                    <div class="comparison-number mutation-number">10⁷</div>
+                    <div>Random Mutations<br>Daily</div>
+                    <div style="margin-top: 10px; color: #dda0dd;">Creative chaos</div>
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 30px; font-size: 1.2em; color: #f0f0f0;">
+                <strong>Monod's "Chance and Necessity" operating simultaneously in every living human</strong>
+            </p>
+        </div>
+        
+        <div class="monod-connection">
+            <h2>🎭 Perfect Illustration of Monod's Insights</h2>
+            <div class="monod-text">
+                <div class="quote">
+                    "Chance alone is at the source of every innovation, of all creation in the biosphere"
+                </div>
+                
+                Your body demonstrates this principle daily:<br><br>
+                
+                <strong>💫 The Randomness:</strong> Millions of random genetic changes occur daily<br>
+                <strong>🔧 The Selection:</strong> Repair systems eliminate harmful mutations<br>
+                <strong>🧬 The Conservation:</strong> Functional sequences are preserved with extraordinary fidelity<br><br>
+                
+                <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <strong>The tension between conservation and variation:</strong><br>
+                    While your body synthesizes 10²² molecules with clockwork precision,<br>
+                    it simultaneously generates 10⁷ random changes—<br>
+                    the raw material for evolution's creative process.
+                </div>
+                
+                <em>Most mutations are neutral or harmful, but occasionally one might be beneficial—<br>
+                the fundamental mechanism that created all life on Earth.</em>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; padding: 30px; background: rgba(255, 71, 87, 0.1); border-radius: 15px;">
+            <h3 style="color: #ff4757; margin-bottom: 15px;">⚡ Living on the Edge of Chaos</h3>
+            <p style="color: #f0f0f0; font-size: 1.1em; line-height: 1.6;">
+                Every day, your body balances on the knife's edge between perfect preservation and creative destruction—<br>
+                the same dynamic tension that has driven evolution for billions of years.
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Create floating damage particles
+        function createDamageParticles() {
+            const container = document.querySelector('.floating-damage');
+            const particles = ['⚡', '💥', '☢️', '🔥', '✨'];
+            
+            setInterval(() => {
+                const particle = document.createElement('div');
+                particle.className = 'damage-particle';
+                particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = '0s';
+                particle.style.animationDuration = (Math.random() * 3 + 6) + 's';
+                container.appendChild(particle);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 9000);
+            }, 800);
+        }
+        
+        // Animate repair bars
+        function animateRepairBars() {
+            setTimeout(() => {
+                document.querySelector('.repair-fill').style.width = '99%';
+                document.querySelector('.permanent-fill').style.width = '1%';
+            }, 1000);
+        }
+        
+        // Add hover effects to mutation cards
+        document.querySelectorAll('.mutation-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Initialize animations
+        createDamageParticles();
+        animateRepairBars();
+    </script>
+</body>
+</html>

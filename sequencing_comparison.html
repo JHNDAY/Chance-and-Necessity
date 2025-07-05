@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protein Sequencing Evolution</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .era {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid;
+        }
+        
+        .era.monod {
+            border-top-color: #e74c3c;
+        }
+        
+        .era.modern {
+            border-top-color: #3498db;
+        }
+        
+        .era h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .era-period {
+            background: #ecf0f1;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #34495e;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .metric-group {
+            margin-bottom: 25px;
+        }
+        
+        .metric-group h3 {
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+        }
+        
+        .metric {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #95a5a6;
+        }
+        
+        .metric strong {
+            color: #2c3e50;
+        }
+        
+        .comparison-chart {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-title {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 25px;
+        }
+        
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 200px;
+            margin: 20px 0;
+        }
+        
+        .bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 10px;
+        }
+        
+        .bar-fill {
+            width: 60px;
+            border-radius: 5px 5px 0 0;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .bar-fill:hover {
+            transform: scale(1.05);
+        }
+        
+        .monod-bar {
+            background: linear-gradient(to top, #e74c3c, #c0392b);
+        }
+        
+        .modern-bar {
+            background: linear-gradient(to top, #3498db, #2980b9);
+        }
+        
+        .bar-label {
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        
+        .impact-section {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .impact-section h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+        
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .impact-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .impact-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .legacy-section {
+            background: #2c3e50;
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .legacy-section h2 {
+            margin-bottom: 20px;
+            color: #ecf0f1;
+        }
+        
+        .legacy-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #bdc3c7;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline {
+                flex-direction: column;
+            }
+            
+            .bar-chart {
+                height: 150px;
+            }
+            
+            .bar-fill {
+                width: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Evolution of Protein Sequencing</h1>
+            <p>From Monod's Manual Chemistry to Modern Automation</p>
+        </div>
+        
+        <div class="timeline">
+            <div class="era monod">
+                <div class="era-period">1950s - 1970s</div>
+                <h2>🧪 The Heroic Age</h2>
+                
+                <div class="metric-group">
+                    <h3>Technology & Methods</h3>
+                    <div class="metric"><strong>Edman degradation:</strong> Manual, one amino acid at a time</div>
+                    <div class="metric"><strong>Chemical cleavage:</strong> Trypsin, chymotrypsin, cyanogen bromide</div>
+                    <div class="metric"><strong>Separation:</strong> Paper/column chromatography</div>
+                    <div class="metric"><strong>Detection:</strong> Manual chemical tests</div>
+                </div>
+                
+                <div class="metric-group">
+                    <h3>Scale & Throughput</h3>
+                    <div class="metric"><strong>Timeline:</strong> Months to years per protein</div>
+                    <div class="metric"><strong>Dataset:</strong> Hundreds of sequences by 1970</div>
+                    <div class="metric"><strong>Labor:</strong> Highly skilled chemists</div>
+                    <div class="metric"><strong>Cost:</strong> Extremely expensive</div>
+                </div>
+            </div>
+            
+            <div class="era modern">
+                <div class="era-period">2020s</div>
+                <h2>🤖 The Age of Automation</h2>
+                
+                <div class="metric-group">
+                    <h3>Technology & Methods</h3>
+                    <div class="metric"><strong>Mass spectrometry:</strong> Automated identification</div>
+                    <div class="metric"><strong>DNA sequencing:</strong> Infer from genomic data</div>
+                    <div class="metric"><strong>Cryo-EM/X-ray:</strong> Direct structural determination</div>
+                    <div class="metric"><strong>AI prediction:</strong> AlphaFold structure prediction</div>
+                </div>
+                
+                <div class="metric-group">
+                    <h3>Scale & Throughput</h3>
+                    <div class="metric"><strong>Timeline:</strong> Minutes to hours</div>
+                    <div class="metric"><strong>Dataset:</strong> 200+ million sequences</div>
+                    <div class="metric"><strong>Labor:</strong> Largely automated</div>
+                    <div class="metric"><strong>Cost:</strong> Extremely low per sequence</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="comparison-chart">
+            <div class="chart-title">📊 Scale Comparison: Data Volume Growth</div>
+            <div class="bar-chart">
+                <div class="bar">
+                    <div class="bar-fill monod-bar" style="height: 20px;"></div>
+                    <div class="bar-label">Monod Era<br>~100s of sequences</div>
+                </div>
+                <div class="bar">
+                    <div class="bar-fill modern-bar" style="height: 180px;"></div>
+                    <div class="bar-label">Modern Era<br>200M+ sequences</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="impact-section">
+            <h2>🚀 The Revolutionary Impact</h2>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <h3>📈 Data Volume Explosion</h3>
+                    <p>From hundreds to millions of sequences, enabling population-scale genomics and personalized medicine</p>
+                </div>
+                <div class="impact-card">
+                    <h3>🔮 From Descriptive to Predictive</h3>
+                    <p>From discovering sequence randomness to predicting protein function, structure, and interactions</p>
+                </div>
+                <div class="impact-card">
+                    <h3>🌐 Integration Across Scales</h3>
+                    <p>From isolated data points to integrated genomics, proteomics, and systems biology</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="legacy-section">
+            <h2>🎯 The Enduring Relevance of Monod's Insights</h2>
+            <div class="legacy-text">
+                Despite this technological revolution, <strong>Monod's core insights remain valid</strong>:<br><br>
+                • Sequence randomness still holds - no predictive rules exist<br>
+                • Conservation through evolution remains the fundamental mechanism<br>
+                • The "chance and necessity" framework still applies<br><br>
+                His theoretical framework proved robust enough to scale across <strong>five orders of magnitude</strong> of data increase, demonstrating how fundamental biological principles can be discerned even with limited tools - provided the analysis is sufficiently insightful.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
