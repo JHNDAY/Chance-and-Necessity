@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index - JHNDAY/Chance-and-Necessity</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #24292e;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f6f8fa;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .repo-title {
+            margin: 0 0 10px 0;
+            color: #0366d6;
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        .repo-description {
+            color: #586069;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .repo-link {
+            color: #0366d6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .repo-link:hover {
+            text-decoration: underline;
+        }
+
+        .stats {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: #f6f8fa;
+            border-radius: 6px;
+        }
+
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #0366d6;
+            display: block;
+        }
+
+        .stat-label {
+            color: #586069;
+            font-size: 0.9em;
+        }
+
+        .file-list {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .file-list-header {
+            background: #f6f8fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e1e4e8;
+            font-weight: 600;
+            color: #24292e;
+        }
+
+        .file-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            gap: 15px;
+            padding: 12px 20px;
+            border-bottom: 1px solid #e1e4e8;
+            align-items: start;
+            transition: background-color 0.2s ease;
+        }
+
+        .file-item:hover {
+            background-color: #f6f8fa;
+        }
+
+        .file-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-icon {
+            font-size: 1.1em;
+            width: 20px;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        .file-info {
+            min-width: 0;
+        }
+
+        .file-name {
+            color: #0366d6;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .file-name:hover {
+            text-decoration: underline;
+        }
+
+        .file-path {
+            color: #586069;
+            font-size: 0.9em;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            margin-bottom: 4px;
+        }
+
+        .file-description {
+            color: #6a737d;
+            font-size: 0.85em;
+            font-style: italic;
+            line-height: 1.3;
+            max-width: 600px;
+        }
+
+        .html-file-link {
+            position: relative;
+        }
+
+        .html-file-link::after {
+            content: "💡 Left-click: Modal view | Right-click: GitHub Pages URL";
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            font-size: 0.75em;
+            color: #0366d6;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .html-file-link:hover::after {
+            opacity: 1;
+        }
+
+        .file-type {
+            background: #e1e4e8;
+            color: #586069;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            white-space: nowrap;
+        }
+
+        .file-size {
+            color: #586069;
+            font-size: 0.9em;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #0366d6;
+            box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.1);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #586069;
+            font-style: italic;
+        }
+
+        .html-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: none;
+        }
+
+        .html-viewer-content {
+            position: relative;
+            width: 90%;
+            height: 90%;
+            margin: 2.5% auto;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .html-viewer-header {
+            background: #f6f8fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e1e4e8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .html-viewer-title {
+            font-weight: 600;
+            color: #24292e;
+        }
+
+        .html-viewer-close {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .html-viewer-close:hover {
+            background: #c82333;
+        }
+
+        .html-viewer-frame {
+            width: 100%;
+            height: calc(100% - 60px);
+            border: none;
+            background: white;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e4e8;
+            color: #586069;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .file-item {
+                grid-template-columns: auto 1fr;
+                gap: 10px;
+            }
+
+            .file-type, .file-size {
+                display: none;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .file-actions {
+                margin-top: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="repo-title">Chance-and-Necessity DataViz Directory</h1>
+        
+    </div>
+
+    <div class="stats">
+        <div class="stat-item">
+            <span class="stat-number">15</span>
+            <span class="stat-label">Total Files</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">1</span>
+            <span class="stat-label">File Types</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">271.0 KB</span>
+            <span class="stat-label">Total Size</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">2025-07-06</span>
+            <span class="stat-label">Generated</span>
+        </div>
+    </div>
+
+    <input type="text" class="search-box" id="searchBox" placeholder="Search files..." onkeyup="filterFiles()">
+
+    <div class="file-list">
+        <div class="file-list-header">
+            📁 Repository Files
+        </div>
+        <div id="fileContainer">
+
+            <div class="file-item" data-filename="monod_intellectual_legacy.html" data-path="monod_intellectual_legacy.html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/Monod_Intellectual_Legacy.html', 'Monod_Intellectual_Legacy.html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/Monod_Intellectual_Legacy.html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">Monod_Intellectual_Legacy.html</a>
+                    <div class="file-path">Monod_Intellectual_Legacy.html</div>
+                    <div class="file-description">About page - 'The Pantheon of Revolutionary Scientific Insights' | Features: 🌟 The Pantheon of Revolutionary Insights 🌟 | Where human consciousness encounters the deepest truths about reality</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">13.4 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/Monod_Intellectual_Legacy.html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+            <div class="file-item" data-filename="biochemical_russian_novel.html" data-path="biochemical_russian_novel.html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/biochemical_russian_novel.html', 'biochemical_russian_novel.html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/biochemical_russian_novel.html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">biochemical_russian_novel.html</a>
+                    <div class="file-path">biochemical_russian_novel.html</div>
+                    <div class="file-description">About page - 'Biochemistry: The Russian Novel' | Features: 📚 Biochemistry: The Russian Novel of Science | "So many characters with different names, or different characters with similar names"</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">18.5 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/biochemical_russian_novel.html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+            <div class="file-item" data-filename="camus_monod_comparison.html" data-path="camus_monod_comparison.html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/camus_monod_comparison.html', 'camus_monod_comparison.html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/camus_monod_comparison.html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">camus_monod_comparison.html</a>
+                    <div class="file-path">camus_monod_comparison.html</div>
+                    <div class="file-description">Homepage/Landing page - 'Camus vs Monod: Philosophy and Science' | Features: Two Responses to Cosmic Indifference | Albert Camus (Existential Philosophy) vs Jacques Monod (Scientific Worldview)</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">17.1 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/camus_monod_comparison.html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+            <div class="file-item" data-filename="chance_necessity_visual.html" data-path="chance_necessity_visual.html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/chance_necessity_visual.html', 'chance_necessity_visual.html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/chance_necessity_visual.html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">chance_necessity_visual.html</a>
+                    <div class="file-path">chance_necessity_visual.html</div>
+                    <div class="file-description">Homepage/Landing page - 'Chance and Necessity - Visual Summary' | Features: Chance and Necessity | Living beings appear purposeful but emerge from chance</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">12.1 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/chance_necessity_visual.html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+            <div class="file-item" data-filename="daily_molecular_synthesis.html" data-path="daily_molecular_synthesis.html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/daily_molecular_synthesis.html', 'daily_molecular_synthesis.html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/daily_molecular_synthesis.html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">daily_molecular_synthesis.html</a>
+                    <div class="file-path">daily_molecular_synthesis.html</div>
+                    <div class="file-description">Homepage/Landing page - 'The Daily Molecular Symphony of Life' | Features: 🧬 The Daily Molecular Symphony | Every second, your body orchestrates the synthesis of quintillions of macromolecules</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">16.3 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/daily_molecular_synthesis.html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+            <div class="file-item" data-filename="daily_mutations_visualization.html" data-path="daily_mutations_visualization.html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/daily_mutations_visualization.html', 'daily_mutations_visualization.html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/daily_mutations_visualization.html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">daily_mutations_visualization.html</a>
+                    <div class="file-path">daily_mutations_visualization.html</div>
+                    <div class="file-description">Blog/Article page - 'The Daily Dance of Mutations and Repairs' | Features: ⚡ Daily Mutations in Your Body | The constant dance between damage and repair that drives evolution</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">19.5 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/daily_mutations_visualization.html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+            <div class="file-item" data-filename="fumarase_enzyme_visualization.html" data-path="fumarase_enzyme_visualization.html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/fumarase_enzyme_visualization.html', 'fumarase_enzyme_visualization.html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/fumarase_enzyme_visualization.html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">fumarase_enzyme_visualization.html</a>
+                    <div class="file-path">fumarase_enzyme_visualization.html</div>
+                    <div class="file-description">Web page - 'Fumarase: Molecular Recognition and Selectivity' | Features: Fumarase: Molecular Recognition in Action | How a simple enzyme demonstrates all of Monod's key principles</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">19.7 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/fumarase_enzyme_visualization.html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+            <div class="file-item" data-filename="fumaric_maleic_geometric_isomers.html" data-path="fumaric_maleic_geometric_isomers.html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/fumaric_maleic_geometric_isomers.html', 'fumaric_maleic_geometric_isomers.html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/fumaric_maleic_geometric_isomers.html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">fumaric_maleic_geometric_isomers.html</a>
+                    <div class="file-path">fumaric_maleic_geometric_isomers.html</div>
+                    <div class="file-description">Homepage/Landing page - 'Fumaric Acid vs Maleic Acid - Geometric Isomers' | Features: ⚛️ Geometric Isomers | Fumaric Acid (trans) vs Maleic Acid (cis) - Same Connectivity, Different Geometry</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">23.7 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/fumaric_maleic_geometric_isomers.html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+            <div class="file-item" data-filename="malic_acid_stereo.html" data-path="malic_acid_stereo.html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/malic_acid_stereo.html', 'malic_acid_stereo.html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/malic_acid_stereo.html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">malic_acid_stereo.html</a>
+                    <div class="file-path">malic_acid_stereo.html</div>
+                    <div class="file-description">Web page - 'Stereoscopic View of D-Malic Acid' | Features: 🧬 D-Malic Acid Stereoscopic View | Cross-eyed method: Cross your eyes slightly while looking at both molecules until they merge into a sin...</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">10.5 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/malic_acid_stereo.html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+            <div class="file-item" data-filename="maxwell_demon_enzyme_visualization.html" data-path="maxwell_demon_enzyme_visualization.html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/maxwell_demon_enzyme_visualization.html', 'maxwell_demon_enzyme_visualization.html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/maxwell_demon_enzyme_visualization.html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">maxwell_demon_enzyme_visualization.html</a>
+                    <div class="file-path">maxwell_demon_enzyme_visualization.html</div>
+                    <div class="file-description">Blog/Article page - 'Maxwell's Demons: Theoretical vs Real' | Features: Maxwell's Demons: From Impossible to Real | How enzymes solved the greatest paradox in thermodynamics</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">24.1 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/maxwell_demon_enzyme_visualization.html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+            <div class="file-item" data-filename="molecular_discrimination_visualization (1).html" data-path="molecular_discrimination_visualization (1).html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/molecular_discrimination_visualization%20(1).html', 'molecular_discrimination_visualization (1).html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/molecular_discrimination_visualization (1).html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">molecular_discrimination_visualization (1).html</a>
+                    <div class="file-path">molecular_discrimination_visualization (1).html</div>
+                    <div class="file-description">About page - 'Molecular Discrimination and Information Processing' | Features: Multiple Levels of Molecular Discrimination | How one enzyme demonstrates three types of molecular cognition</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">22.6 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/molecular_discrimination_visualization%20(1).html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+            <div class="file-item" data-filename="molecular_mechanics_visualization.html" data-path="molecular_mechanics_visualization.html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/molecular_mechanics_visualization.html', 'molecular_mechanics_visualization.html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/molecular_mechanics_visualization.html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">molecular_mechanics_visualization.html</a>
+                    <div class="file-path">molecular_mechanics_visualization.html</div>
+                    <div class="file-description">Homepage/Landing page - 'Molecular Mechanics: The Foundation of Life' | Features: Molecular Mechanics: The Foundation of Everything | How Monod's molecular insights revolutionized our understanding...</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">19.0 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/molecular_mechanics_visualization.html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+            <div class="file-item" data-filename="monod_paradox_visualization.html" data-path="monod_paradox_visualization.html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/monod_paradox_visualization.html', 'monod_paradox_visualization.html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/monod_paradox_visualization.html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">monod_paradox_visualization.html</a>
+                    <div class="file-path">monod_paradox_visualization.html</div>
+                    <div class="file-description">Homepage/Landing page - 'The Monod Paradox' | Simultaneously "dumb" by conventional philosophy, brilliant beyond words in the realm of ideas</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">19.6 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/monod_paradox_visualization.html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+            <div class="file-item" data-filename="sequencing_comparison.html" data-path="sequencing_comparison.html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/sequencing_comparison.html', 'sequencing_comparison.html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/sequencing_comparison.html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">sequencing_comparison.html</a>
+                    <div class="file-path">sequencing_comparison.html</div>
+                    <div class="file-description">Homepage/Landing page - 'Protein Sequencing Evolution' | Features: Evolution of Protein Sequencing | From Monod's Manual Chemistry to Modern Automation</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">10.6 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/sequencing_comparison.html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+            <div class="file-item" data-filename="stereospecific_complex_visualization.html" data-path="stereospecific_complex_visualization.html">
+                <div class="file-icon">🌐</div>
+                <div class="file-info">
+                    <a href="javascript:void(0)" 
+                                onclick="openHTMLViewer('https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/stereospecific_complex_visualization.html', 'stereospecific_complex_visualization.html')" 
+                                oncontextmenu="window.open('https://jhnday.github.io/Chance-and-Necessity/stereospecific_complex_visualization.html', '_blank'); return false;"
+                                class="file-name html-file-link" 
+                                title="Left-click: Modal view | Right-click: Open GitHub Pages URL">stereospecific_complex_visualization.html</a>
+                    <div class="file-path">stereospecific_complex_visualization.html</div>
+                    <div class="file-description">Homepage/Landing page - 'Stereospecific Complex: The Master Key' | Features: Stereospecific Complex | The Master Key to Understanding Life</div>
+                </div>
+                <div class="file-type">HTML</div>
+                <div class="file-actions">
+                    <span class="file-size">24.3 KB</span>
+                    <a href="https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/stereospecific_complex_visualization.html" target="_blank" title="Download" style="margin-left: 10px;">⬇️</a>
+                </div>
+            </div>
+
+        </div>
+        <div id="noResults" class="no-results" style="display: none;">
+            No files found matching your search.
+        </div>
+    </div>
+
+    <!-- HTML Viewer Modal -->
+    <div id="htmlViewer" class="html-viewer">
+        <div class="html-viewer-content">
+            <div class="html-viewer-header">
+                <span id="htmlViewerTitle" class="html-viewer-title">Viewing HTML File</span>
+                <button class="html-viewer-close" onclick="closeHTMLViewer()">Close ✕</button>
+            </div>
+            <iframe id="htmlViewerFrame" class="html-viewer-frame" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+        </div>
+    </div>
+
+    <div class="footer">
+        Generated on July 06, 2025 at 07:00 AM | 
+        <a href="https://github.com/JHNDAY/Chance-and-Necessity" target="_blank">JHNDAY/Chance-and-Necessity</a>
+    </div>
+
+    <script>
+        function filterFiles() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const fileItems = document.querySelectorAll('.file-item');
+            const noResults = document.getElementById('noResults');
+            let visibleCount = 0;
+
+            fileItems.forEach(item => {
+                const filename = item.getAttribute('data-filename');
+                const filepath = item.getAttribute('data-path');
+
+                if (filename.includes(searchTerm) || filepath.includes(searchTerm)) {
+                    item.style.display = 'grid';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            if (visibleCount === 0 && searchTerm !== '') {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        }
+
+        function openHTMLViewer(rawUrl, filename) {
+            const viewer = document.getElementById('htmlViewer');
+            const frame = document.getElementById('htmlViewerFrame');
+            const title = document.getElementById('htmlViewerTitle');
+
+            title.textContent = `Viewing: ${filename}`;
+
+            // Create a blob URL to properly render the HTML
+            fetch(rawUrl)
+                .then(response => response.text())
+                .then(html => {
+                    const blob = new Blob([html], { type: 'text/html' });
+                    const blobUrl = URL.createObjectURL(blob);
+                    frame.src = blobUrl;
+                    viewer.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error loading HTML:', error);
+                    // Fallback to direct URL
+                    frame.src = rawUrl;
+                    viewer.style.display = 'block';
+                });
+        }
+
+        function openInNewTab(rawUrl, filename) {
+            // Method 1: Try to create a blob URL and open it (shows proper URL)
+            fetch(rawUrl)
+                .then(response => response.text())
+                .then(html => {
+                    // Create a blob with the HTML content
+                    const blob = new Blob([html], { type: 'text/html' });
+                    const blobUrl = URL.createObjectURL(blob);
+
+                    // Open the blob URL in a new tab - this will show a blob:// URL in address bar
+                    const newWindow = window.open(blobUrl, '_blank');
+
+                    if (newWindow) {
+                        // Set the title after the window loads
+                        newWindow.addEventListener('load', function() {
+                            newWindow.document.title = filename;
+                        });
+
+                        // Clean up the blob URL after some time to free memory
+                        setTimeout(() => {
+                            URL.revokeObjectURL(blobUrl);
+                        }, 10000);
+                    } else {
+                        // Fallback if popup blocked
+                        alert('Popup blocked. Please allow popups for this site or use the main viewer.');
+                        openHTMLViewer(rawUrl, filename);
+                        URL.revokeObjectURL(blobUrl);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading HTML for new tab:', error);
+                    // Fallback: open raw URL directly (will show GitHub raw URL)
+                    window.open(rawUrl, '_blank');
+                });
+        }
+
+        function openRawInNewTab(rawUrl) {
+            // Alternative function to open the raw GitHub URL directly
+            // This will show the actual GitHub raw URL in the address bar
+            window.open(rawUrl, '_blank');
+        }
+
+        function closeHTMLViewer() {
+            const viewer = document.getElementById('htmlViewer');
+            const frame = document.getElementById('htmlViewerFrame');
+            viewer.style.display = 'none';
+            frame.src = 'about:blank';
+        }
+
+        // Close viewer when clicking outside
+        document.getElementById('htmlViewer').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeHTMLViewer();
+            }
+        });
+
+        // Add keyboard shortcut for search
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'f') {
+                e.preventDefault();
+                document.getElementById('searchBox').focus();
+            }
+
+            // Close viewer with Escape key
+            if (e.key === 'Escape') {
+                closeHTMLViewer();
+            }
+        });
+    </script>
+</body>
+</html>
