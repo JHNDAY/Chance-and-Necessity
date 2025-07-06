@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fumaric Acid vs Maleic Acid - Geometric Isomers</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.4em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            color: #ecf0f1;
+        }
+
+        .geometric-comparison {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+
+        .molecule-container {
+            background: rgba(255, 255, 255, 0.12);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 35px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
+            min-width: 450px;
+            position: relative;
+        }
+
+        .molecule-container:hover {
+            transform: translateY(-15px) scale(1.02);
+        }
+
+        .molecule-title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .trans-isomer { border-color: #e74c3c; }
+        .cis-isomer { border-color: #3498db; }
+
+        .trans-isomer .molecule-title { color: #ff6b6b; }
+        .cis-isomer .molecule-title { color: #74b9ff; }
+
+        .geometric-label {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .molecule-display {
+            width: 100%;
+            height: 450px;
+            position: relative;
+            perspective: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .molecule-3d {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate3d 30s infinite linear;
+        }
+
+        .fumaric-molecule {
+            animation: rotateFumaric 30s infinite linear;
+        }
+
+        .maleic-molecule {
+            animation: rotateMaleic 30s infinite linear;
+        }
+
+        @keyframes rotateFumaric {
+            from { transform: rotateY(0deg) rotateX(10deg) rotateZ(0deg); }
+            to { transform: rotateY(360deg) rotateX(10deg) rotateZ(0deg); }
+        }
+
+        @keyframes rotateMaleic {
+            from { transform: rotateY(180deg) rotateX(10deg) rotateZ(0deg); }
+            to { transform: rotateY(540deg) rotateX(10deg) rotateZ(0deg); }
+        }
+
+        .atom {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .atom:hover {
+            transform: scale(1.25);
+            z-index: 15;
+        }
+
+        .carbon {
+            width: 55px;
+            height: 55px;
+            background: radial-gradient(circle at 30% 30%, #666, #333);
+            font-size: 13px;
+            border: 3px solid #555;
+        }
+
+        .carbon-double {
+            border: 4px solid #f39c12 !important;
+            box-shadow: 0 0 20px rgba(243, 156, 18, 0.6), 0 8px 25px rgba(0, 0, 0, 0.5);
+            animation: pulseDouble 3s infinite;
+        }
+
+        @keyframes pulseDouble {
+            0%, 100% { box-shadow: 0 0 20px rgba(243, 156, 18, 0.6), 0 8px 25px rgba(0, 0, 0, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(243, 156, 18, 0.9), 0 8px 25px rgba(0, 0, 0, 0.5); }
+        }
+
+        .oxygen {
+            width: 45px;
+            height: 45px;
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #e74c3c);
+            font-size: 11px;
+            border: 2px solid #c0392b;
+        }
+
+        .hydrogen {
+            width: 32px;
+            height: 32px;
+            background: radial-gradient(circle at 30% 30%, #fff, #ecf0f1);
+            color: #333;
+            font-size: 11px;
+            border: 2px solid #bdc3c7;
+        }
+
+        .bond {
+            position: absolute;
+            background: linear-gradient(45deg, #666, #888);
+            border-radius: 4px;
+            transform-origin: left center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .double-bond {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            height: 8px !important;
+            box-shadow: 0 0 15px rgba(243, 156, 18, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 18px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .control-group:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .control-group h3 {
+            margin: 0 0 18px 0;
+            font-size: 1.2em;
+            color: #ecf0f1;
+        }
+
+        button {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            margin: 6px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, #c0392b, #a93226);
+        }
+
+        .blue-btn {
+            background: linear-gradient(45deg, #3498db, #2980b9) !important;
+        }
+
+        .blue-btn:hover {
+            background: linear-gradient(45deg, #2980b9, #21618c) !important;
+        }
+
+        .comparison-panel {
+            background: rgba(255, 255, 255, 0.95);
+            color: #2c3e50;
+            padding: 35px;
+            border-radius: 25px;
+            margin: 40px 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .vs-symbol {
+            text-align: center;
+            font-size: 3em;
+            margin: 30px 0;
+            color: #f39c12;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .status {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 16px;
+            color: #ecf0f1;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 1100px) {
+            .geometric-comparison {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .molecule-container {
+                min-width: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚛️ Geometric Isomers</h1>
+        <p class="subtitle">Fumaric Acid (trans) vs Maleic Acid (cis) - Same Connectivity, Different Geometry</p>
+
+        <div class="geometric-comparison">
+            <!-- Fumaric Acid (trans) -->
+            <div class="molecule-container trans-isomer">
+                <div class="geometric-label">TRANS</div>
+                <div class="molecule-title">Fumaric Acid</div>
+                <div class="molecule-display">
+                    <div class="molecule-3d fumaric-molecule" id="fumaric">
+                        <!-- Left side -->
+                        <div class="atom carbon carbon-double" style="top: 170px; left: 120px; transform: translateZ(0px);" 
+                             title="Carbon 1 - Double bond">C1</div>
+                        <div class="atom hydrogen" style="top: 130px; left: 80px; transform: translateZ(20px);" 
+                             title="Hydrogen on C1">H</div>
+                        <div class="atom carbon" style="top: 210px; left: 60px; transform: translateZ(-10px);" 
+                             title="Carboxylic carbon">C</div>
+                        <div class="atom oxygen" style="top: 180px; left: 20px; transform: translateZ(-20px);" 
+                             title="Carbonyl oxygen">O</div>
+                        <div class="atom oxygen" style="top: 240px; left: 20px; transform: translateZ(10px);" 
+                             title="Hydroxyl oxygen">OH</div>
+                        
+                        <!-- Right side -->
+                        <div class="atom carbon carbon-double" style="top: 170px; left: 220px; transform: translateZ(0px);" 
+                             title="Carbon 2 - Double bond">C2</div>
+                        <div class="atom hydrogen" style="top: 210px; left: 260px; transform: translateZ(-20px);" 
+                             title="Hydrogen on C2">H</div>
+                        <div class="atom carbon" style="top: 130px; left: 280px; transform: translateZ(10px);" 
+                             title="Carboxylic carbon">C</div>
+                        <div class="atom oxygen" style="top: 160px; left: 320px; transform: translateZ(20px);" 
+                             title="Carbonyl oxygen">O</div>
+                        <div class="atom oxygen" style="top: 100px; left: 320px; transform: translateZ(-10px);" 
+                             title="Hydroxyl oxygen">OH</div>
+                        
+                        <!-- Double bond -->
+                        <div class="bond double-bond" style="top: 187px; left: 148px; width: 72px; height: 8px;"></div>
+                        
+                        <!-- Single bonds -->
+                        <div class="bond" style="top: 185px; left: 90px; width: 50px; height: 4px; transform: rotate(-30deg);"></div>
+                        <div class="bond" style="top: 185px; left: 250px; width: 50px; height: 4px; transform: rotate(30deg);"></div>
+                    </div>
+                </div>
+                <div class="status">COOH groups: OPPOSITE sides</div>
+            </div>
+
+            <div class="vs-symbol">⚔️ VS ⚔️</div>
+
+            <!-- Maleic Acid (cis) -->
+            <div class="molecule-container cis-isomer">
+                <div class="geometric-label">CIS</div>
+                <div class="molecule-title">Maleic Acid</div>
+                <div class="molecule-display">
+                    <div class="molecule-3d maleic-molecule" id="maleic">
+                        <!-- Left side -->
+                        <div class="atom carbon carbon-double" style="top: 170px; left: 120px; transform: translateZ(0px);" 
+                             title="Carbon 1 - Double bond">C1</div>
+                        <div class="atom hydrogen" style="top: 130px; left: 80px; transform: translateZ(20px);" 
+                             title="Hydrogen on C1">H</div>
+                        <div class="atom carbon" style="top: 210px; left: 60px; transform: translateZ(-10px);" 
+                             title="Carboxylic carbon">C</div>
+                        <div class="atom oxygen" style="top: 180px; left: 20px; transform: translateZ(-20px);" 
+                             title="Carbonyl oxygen">O</div>
+                        <div class="atom oxygen" style="top: 240px; left: 20px; transform: translateZ(10px);" 
+                             title="Hydroxyl oxygen">OH</div>
+                        
+                        <!-- Right side -->
+                        <div class="atom carbon carbon-double" style="top: 170px; left: 220px; transform: translateZ(0px);" 
+                             title="Carbon 2 - Double bond">C2</div>
+                        <div class="atom hydrogen" style="top: 130px; left: 260px; transform: translateZ(-20px);" 
+                             title="Hydrogen on C2">H</div>
+                        <div class="atom carbon" style="top: 210px; left: 280px; transform: translateZ(10px);" 
+                             title="Carboxylic carbon">C</div>
+                        <div class="atom oxygen" style="top: 180px; left: 320px; transform: translateZ(20px);" 
+                             title="Carbonyl oxygen">O</div>
+                        <div class="atom oxygen" style="top: 240px; left: 320px; transform: translateZ(-10px);" 
+                             title="Hydroxyl oxygen">OH</div>
+                        
+                        <!-- Double bond -->
+                        <div class="bond double-bond" style="top: 187px; left: 148px; width: 72px; height: 8px;"></div>
+                        
+                        <!-- Single bonds -->
+                        <div class="bond" style="top: 185px; left: 90px; width: 50px; height: 4px; transform: rotate(-30deg);"></div>
+                        <div class="bond" style="top: 185px; left: 250px; width: 50px; height: 4px; transform: rotate(-30deg);"></div>
+                    </div>
+                </div>
+                <div class="status">COOH groups: SAME side</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <h3>🎮 Animation Controls</h3>
+                <button onclick="window.toggleRotation()">Toggle Rotation</button>
+                <button onclick="window.syncRotation()">Sync Molecules</button>
+                <button onclick="window.highlightDoubleBond()">Highlight C=C</button>
+            </div>
+            <div class="control-group">
+                <h3>🔍 Analysis</h3>
+                <button class="blue-btn" onclick="window.showDifferences()">Show Key Differences</button>
+                <button class="blue-btn" onclick="window.compareProperties()">Compare Properties</button>
+                <button class="blue-btn" onclick="window.showBiological()">Biological Roles</button>
+            </div>
+        </div>
+
+        <div class="comparison-panel">
+            <h3>🔬 Geometric Isomerism Analysis</h3>
+            
+            <div style="background: linear-gradient(135deg, #fdcb6e, #e17055); color: #2d3436; padding: 30px; border-radius: 20px; margin: 25px 0; border-left: 8px solid #d63031;">
+                <h4>🎯 The Critical Difference: C=C Double Bond Geometry</h4>
+                <p><strong>The ONLY difference:</strong> The spatial arrangement around the C=C double bond. This creates two distinct geometric isomers:</p>
+                <ul>
+                    <li><strong>Trans (Fumaric):</strong> COOH groups on OPPOSITE sides of the double bond</li>
+                    <li><strong>Cis (Maleic):</strong> COOH groups on the SAME side of the double bond</li>
+                </ul>
+                <p>Unlike single bonds, the C=C double bond cannot rotate, locking these molecules into their specific geometric arrangements!</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 35px; margin: 25px 0;">
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 18px; border-left: 6px solid #e74c3c;">
+                    <h4>Fumaric Acid (trans)</h4>
+                    <ul>
+                        <li><strong>Geometry:</strong> COOH groups opposite</li>
+                        <li><strong>Stability:</strong> More stable (lower energy)</li>
+                        <li><strong>Melting Point:</strong> 287°C (higher)</li>
+                        <li><strong>Solubility:</strong> Less soluble in water</li>
+                        <li><strong>Occurrence:</strong> Found in nature</li>
+                        <li><strong>Uses:</strong> Food additive, Krebs cycle</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 18px; border-left: 6px solid #3498db;">
+                    <h4>Maleic Acid (cis)</h4>
+                    <ul>
+                        <li><strong>Geometry:</strong> COOH groups same side</li>
+                        <li><strong>Stability:</strong> Less stable (higher energy)</li>
+                        <li><strong>Melting Point:</strong> 131°C (lower)</li>
+                        <li><strong>Solubility:</strong> More soluble in water</li>
+                        <li><strong>Occurrence:</strong> Synthetic origin</li>
+                        <li><strong>Uses:</strong> Industrial polymers, resins</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-around; margin: 35px 0; flex-wrap: wrap;">
+                <div style="background: #2c3e50; color: white; padding: 25px; border-radius: 18px; font-family: 'Courier New', monospace; font-size: 18px; line-height: 2; text-align: center; margin: 15px; min-width: 250px; border: 3px solid rgba(255, 255, 255, 0.3);">
+                    <h4>Fumaric Acid (trans)</h4>
+                    <pre>
+HOOC      H
+    \    /
+     C==C
+    /    \
+   H      COOH
+                    </pre>
+                    <p>Linear arrangement</p>
+                </div>
+
+                <div style="background: #2c3e50; color: white; padding: 25px; border-radius: 18px; font-family: 'Courier New', monospace; font-size: 18px; line-height: 2; text-align: center; margin: 15px; min-width: 250px; border: 3px solid rgba(255, 255, 255, 0.3);">
+                    <h4>Maleic Acid (cis)</h4>
+                    <pre>
+HOOC      COOH
+    \    /
+     C==C
+    /    \
+   H      H
+                    </pre>
+                    <p>Bent arrangement</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">⚗️ Key Properties Explained</h3>
+            <p><strong>Steric Effects:</strong> In maleic acid, the COOH groups are forced close together, creating repulsion and strain.</p>
+            <p><strong>Hydrogen Bonding:</strong> Maleic acid can form intramolecular hydrogen bonds, affecting its properties.</p>
+            <p><strong>Symmetry:</strong> Fumaric acid's higher symmetry leads to better crystal packing and higher melting point.</p>
+            <p><strong>Reactivity:</strong> The different geometries affect how these molecules interact with other compounds and enzymes.</p>
+        </div>
+    </div>
+
+    <script>
+        // Define all functions in window scope to ensure they're globally accessible
+        window.rotationEnabled = true;
+        window.syncedRotation = false;
+
+        window.toggleRotation = function() {
+            window.rotationEnabled = !window.rotationEnabled;
+            const fumaric = document.getElementById('fumaric');
+            const maleic = document.getElementById('maleic');
+            
+            if (window.rotationEnabled) {
+                fumaric.style.animation = 'rotateFumaric 30s infinite linear';
+                maleic.style.animation = 'rotateMaleic 30s infinite linear';
+            } else {
+                fumaric.style.animation = 'none';
+                maleic.style.animation = 'none';
+            }
+        };
+
+        window.syncRotation = function() {
+            window.syncedRotation = !window.syncedRotation;
+            const fumaric = document.getElementById('fumaric');
+            const maleic = document.getElementById('maleic');
+            
+            if (window.syncedRotation) {
+                fumaric.style.animation = 'rotateFumaric 30s infinite linear';
+                maleic.style.animation = 'rotateFumaric 30s infinite linear';
+                alert('Molecules synchronized for easier comparison!');
+            } else {
+                fumaric.style.animation = 'rotateFumaric 30s infinite linear';
+                maleic.style.animation = 'rotateMaleic 30s infinite linear';
+                alert('Normal rotation restored');
+            }
+        };
+
+        window.highlightDoubleBond = function() {
+            const doubleBonds = document.querySelectorAll('.carbon-double');
+            const bonds = document.querySelectorAll('.double-bond');
+            
+            doubleBonds.forEach(bond => {
+                bond.style.transform = 'scale(1.2)';
+                setTimeout(() => bond.style.transform = 'scale(1)', 3000);
+            });
+            
+            bonds.forEach(bond => {
+                bond.style.boxShadow = '0 0 25px rgba(243, 156, 18, 0.9)';
+                setTimeout(() => bond.style.boxShadow = '0 0 15px rgba(243, 156, 18, 0.5)', 3000);
+            });
+            
+            alert('C=C Double Bond Highlighted!\n\n• Cannot rotate freely\n• Locks geometric arrangement\n• Creates trans vs cis isomers');
+        };
+
+        window.showDifferences = function() {
+            alert('Key Geometric Differences:\n\n🔴 FUMARIC (trans):\n• COOH groups on OPPOSITE sides\n• More stable configuration\n• Found in biological systems\n\n🔵 MALEIC (cis):\n• COOH groups on SAME side\n• Less stable, more strained\n• Synthetic compound\n\nSame formula (C₄H₄O₄), different shape!');
+        };
+
+        window.compareProperties = function() {
+            alert('Property Comparison:\n\n📊 FUMARIC ACID:\n• Melting Point: 287°C\n• Solubility: 0.63 g/100mL\n• More stable\n• Linear structure\n\n📊 MALEIC ACID:\n• Melting Point: 131°C\n• Solubility: 79 g/100mL\n• Less stable\n• Bent structure\n\nGeometry determines properties!');
+        };
+
+        window.showBiological = function() {
+            alert('Biological Roles:\n\n🌱 FUMARIC ACID:\n• Essential in cellular respiration\n• Krebs cycle intermediate\n• Found naturally in plants\n• Food additive (sour taste)\n\n🏭 MALEIC ACID:\n• Industrial chemical\n• Polymer production\n• Not found in biology\n• More reactive due to strain\n\nNature chose the stable trans form!');
+        };
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to atoms
+            document.querySelectorAll('.atom').forEach(atom => {
+                atom.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.15)';
+                    this.style.zIndex = '20';
+                });
+                
+                atom.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.zIndex = '';
+                });
+            });
+            
+            // Welcome message
+            setTimeout(() => {
+                alert('Welcome to Geometric Isomers!\n\n🎯 Key Points:\n• Same molecular formula\n• Different 3D arrangements\n• C=C double bond prevents rotation\n• Trans = opposite sides\n• Cis = same side\n\nExplore the differences with the controls below!');
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

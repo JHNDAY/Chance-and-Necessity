@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stereoscopic View of D-Malic Acid</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .stereo-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .stereo-view {
+            background: #f8f9fa;
+            border: 3px solid #333;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stereo-view:hover {
+            transform: translateY(-5px);
+        }
+
+        .stereo-view h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #444;
+            font-size: 1.2em;
+        }
+
+        .molecule {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            margin: 20px auto;
+            perspective: 1000px;
+        }
+
+        .molecule-3d {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 20s infinite linear;
+        }
+
+        @keyframes rotate {
+            from { transform: rotateY(0deg) rotateX(15deg); }
+            to { transform: rotateY(360deg) rotateX(15deg); }
+        }
+
+        .atom {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .carbon {
+            width: 40px;
+            height: 40px;
+            background: #333;
+            font-size: 12px;
+        }
+
+        .oxygen {
+            width: 35px;
+            height: 35px;
+            background: #e74c3c;
+            font-size: 11px;
+        }
+
+        .hydrogen {
+            width: 25px;
+            height: 25px;
+            background: #ecf0f1;
+            color: #333;
+            font-size: 10px;
+        }
+
+        .bond {
+            position: absolute;
+            background: #333;
+            border-radius: 2px;
+            transform-origin: left center;
+        }
+
+        .wedge-bond {
+            position: absolute;
+            background: linear-gradient(to right, #333 0%, #333 50%, transparent 50%, transparent 100%);
+            clip-path: polygon(0 40%, 100% 20%, 100% 80%, 0 60%);
+        }
+
+        .dash-bond {
+            position: absolute;
+            background: repeating-linear-gradient(
+                90deg,
+                #333 0px,
+                #333 5px,
+                transparent 5px,
+                transparent 10px
+            );
+            height: 4px;
+        }
+
+        /* Left eye view (standard) */
+        .left-view .molecule-3d {
+            transform: rotateY(-5deg) rotateX(15deg);
+        }
+
+        /* Right eye view (slightly rotated) */
+        .right-view .molecule-3d {
+            transform: rotateY(5deg) rotateX(15deg);
+        }
+
+        .instructions {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #3498db;
+        }
+
+        .structure-info {
+            background: #f0f8f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #27ae60;
+        }
+
+        .fischer-projection {
+            text-align: center;
+            font-family: monospace;
+            font-size: 16px;
+            line-height: 1.8;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .stereo-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .molecule {
+                width: 250px;
+                height: 250px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧬 D-Malic Acid Stereoscopic View</h1>
+        
+        <div class="instructions">
+            <h3>👁️ How to View the Stereoscopic Effect:</h3>
+            <p><strong>Cross-eyed method:</strong> Cross your eyes slightly while looking at both molecules until they merge into a single 3D image in the center.</p>
+            <p><strong>Parallel method:</strong> Relax your eyes and look "through" the screen as if focusing on something far behind it.</p>
+            <p><strong>Tip:</strong> The 3D effect may take some practice - be patient and try different viewing distances!</p>
+        </div>
+
+        <div class="stereo-container">
+            <div class="stereo-view left-view">
+                <h3>Left Eye</h3>
+                <div class="molecule">
+                    <div class="molecule-3d">
+                        <!-- Carbon atoms -->
+                        <div class="atom carbon" style="top: 50px; left: 130px; transform: translateZ(0px);">C1</div>
+                        <div class="atom carbon" style="top: 130px; left: 130px; transform: translateZ(0px);">C2</div>
+                        <div class="atom carbon" style="top: 210px; left: 130px; transform: translateZ(0px);">C3</div>
+                        
+                        <!-- Oxygen atoms -->
+                        <div class="atom oxygen" style="top: 20px; left: 90px; transform: translateZ(-20px);">O</div>
+                        <div class="atom oxygen" style="top: 30px; left: 170px; transform: translateZ(20px);">O</div>
+                        <div class="atom oxygen" style="top: 110px; left: 70px; transform: translateZ(-30px);">O</div>
+                        <div class="atom oxygen" style="top: 240px; left: 90px; transform: translateZ(-20px);">O</div>
+                        <div class="atom oxygen" style="top: 250px; left: 170px; transform: translateZ(20px);">O</div>
+                        
+                        <!-- Hydrogen atoms -->
+                        <div class="atom hydrogen" style="top: 40px; left: 200px; transform: translateZ(0px);">H</div>
+                        <div class="atom hydrogen" style="top: 140px; left: 200px; transform: translateZ(30px);">H</div>
+                        <div class="atom hydrogen" style="top: 180px; left: 100px; transform: translateZ(-10px);">H</div>
+                        <div class="atom hydrogen" style="top: 180px; left: 160px; transform: translateZ(10px);">H</div>
+                        <div class="atom hydrogen" style="top: 100px; left: 40px; transform: translateZ(-40px);">H</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stereo-view right-view">
+                <h3>Right Eye</h3>
+                <div class="molecule">
+                    <div class="molecule-3d">
+                        <!-- Carbon atoms -->
+                        <div class="atom carbon" style="top: 50px; left: 130px; transform: translateZ(0px);">C1</div>
+                        <div class="atom carbon" style="top: 130px; left: 130px; transform: translateZ(0px);">C2</div>
+                        <div class="atom carbon" style="top: 210px; left: 130px; transform: translateZ(0px);">C3</div>
+                        
+                        <!-- Oxygen atoms -->
+                        <div class="atom oxygen" style="top: 20px; left: 100px; transform: translateZ(-20px);">O</div>
+                        <div class="atom oxygen" style="top: 30px; left: 160px; transform: translateZ(20px);">O</div>
+                        <div class="atom oxygen" style="top: 110px; left: 80px; transform: translateZ(-30px);">O</div>
+                        <div class="atom oxygen" style="top: 240px; left: 100px; transform: translateZ(-20px);">O</div>
+                        <div class="atom oxygen" style="top: 250px; left: 160px; transform: translateZ(20px);">O</div>
+                        
+                        <!-- Hydrogen atoms -->
+                        <div class="atom hydrogen" style="top: 40px; left: 190px; transform: translateZ(0px);">H</div>
+                        <div class="atom hydrogen" style="top: 140px; left: 190px; transform: translateZ(30px);">H</div>
+                        <div class="atom hydrogen" style="top: 180px; left: 110px; transform: translateZ(-10px);">H</div>
+                        <div class="atom hydrogen" style="top: 180px; left: 150px; transform: translateZ(10px);">H</div>
+                        <div class="atom hydrogen" style="top: 100px; left: 50px; transform: translateZ(-40px);">H</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="structure-info">
+            <h3>🔬 D-Malic Acid Structure Information:</h3>
+            <p><strong>Molecular Formula:</strong> C₄H₆O₅</p>
+            <p><strong>IUPAC Name:</strong> (2R)-2-hydroxybutanedioic acid</p>
+            <p><strong>Chiral Center:</strong> C2 (the central carbon with four different groups)</p>
+            <p><strong>Configuration:</strong> R configuration at the chiral center</p>
+            <p><strong>Functional Groups:</strong> Two carboxylic acid groups (-COOH) and one hydroxyl group (-OH)</p>
+        </div>
+
+        <div class="fischer-projection">
+            <h3>Fischer Projection of D-Malic Acid:</h3>
+            <pre>
+      COOH
+       |
+   HO—C—H
+       |
+      CH₂
+       |
+      COOH
+            </pre>
+            <p><em>In Fischer projection, horizontal lines represent bonds coming out of the page (wedges), and vertical lines represent bonds going into the page (dashes).</em></p>
+        </div>
+    </div>
+</body>
+</html>

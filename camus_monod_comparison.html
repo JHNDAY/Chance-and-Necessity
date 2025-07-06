@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camus vs Monod: Philosophy and Science</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #ccc;
+            font-style: italic;
+        }
+
+        .main-comparison {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+            min-height: 80vh;
+            align-items: start;
+        }
+
+        .philosopher-section {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 107, 107, 0.1));
+            border: 2px solid #ff6b6b;
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scientist-section {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.2), rgba(78, 205, 196, 0.1));
+            border: 2px solid #4ecdc4;
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shared-space {
+            background: linear-gradient(135deg, rgba(150, 206, 180, 0.2), rgba(255, 255, 255, 0.1));
+            border: 2px solid #96ceb4;
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 600px;
+        }
+
+        .portrait {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #333, #666);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border: 3px solid currentColor;
+        }
+
+        .camus-portrait {
+            color: #ff6b6b;
+        }
+
+        .monod-portrait {
+            color: #4ecdc4;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: inherit;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin: 20px 0 10px;
+            color: #fff;
+            border-bottom: 2px solid currentColor;
+            padding-bottom: 5px;
+        }
+
+        .core-insight {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid currentColor;
+            font-style: italic;
+        }
+
+        .methodology {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .quote {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-style: italic;
+            border-left: 3px solid currentColor;
+            position: relative;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 3rem;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            opacity: 0.3;
+        }
+
+        .shared-concepts {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .concept-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .concept-tag {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: white;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .concept-tag:nth-child(odd) {
+            animation-delay: -1s;
+        }
+
+        .concept-tag:nth-child(even) {
+            animation-delay: -2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .divergence {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .tension-arrow {
+            text-align: center;
+            font-size: 2rem;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .synthesis {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 40px;
+            border: 2px solid #764ba2;
+            box-shadow: 0 20px 40px rgba(118, 75, 162, 0.3);
+        }
+
+        .response-path {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .path-step {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 0 5px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .path-step:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .arrow {
+            font-size: 1.5rem;
+            color: #96ceb4;
+        }
+
+        .sisyphus-visual {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 4rem;
+            opacity: 0.2;
+            animation: roll 8s linear infinite;
+        }
+
+        @keyframes roll {
+            0% { transform: rotate(0deg) translateX(0px); }
+            50% { transform: rotate(180deg) translateX(20px); }
+            100% { transform: rotate(360deg) translateX(0px); }
+        }
+
+        .dna-visual {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            opacity: 0.2;
+            animation: helix 6s linear infinite;
+        }
+
+        @keyframes helix {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .key-differences {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .difference-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .camus-diff {
+            border-left: 4px solid #ff6b6b;
+            padding-left: 15px;
+        }
+
+        .monod-diff {
+            border-left: 4px solid #4ecdc4;
+            padding-left: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .main-comparison {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .divergence {
+                grid-template-columns: 1fr;
+            }
+            
+            .difference-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Two Responses to Cosmic Indifference</h1>
+            <p>Albert Camus (Existential Philosophy) vs Jacques Monod (Scientific Worldview)</p>
+        </div>
+
+        <div class="main-comparison">
+            <div class="philosopher-section">
+                <div class="portrait camus-portrait">🎭</div>
+                <h2 style="color: #ff6b6b;">Albert Camus</h2>
+                <h3>The Absurdist Response</h3>
+                
+                <div class="core-insight">
+                    <strong>Core Insight:</strong> Life is fundamentally absurd - there's an unbridgeable gap between human need for meaning and the universe's silence.
+                </div>
+
+                <div class="quote">
+                    One must imagine Sisyphus happy. The struggle itself toward the heights is enough to fill a man's heart.
+                </div>
+
+                <h3>Methodology</h3>
+                <div class="methodology">
+                    • <strong>Phenomenological:</strong> Starts with lived human experience<br>
+                    • <strong>Literary & Philosophical:</strong> Uses metaphor, narrative, and logical analysis<br>
+                    • <strong>Introspective:</strong> Examines consciousness and feeling
+                </div>
+
+                <h3>Response to Meaninglessness</h3>
+                <div class="response-path">
+                    <div class="path-step">Recognize Absurd</div>
+                    <div class="arrow">→</div>
+                    <div class="path-step">Embrace Struggle</div>
+                    <div class="arrow">→</div>
+                    <div class="path-step">Create Meaning</div>
+                </div>
+
+                <div class="quote">
+                    There is but one truly serious philosophical problem, and that is suicide. Judging whether life is or is not worth living amounts to answering the fundamental question of philosophy.
+                </div>
+
+                <div class="sisyphus-visual">⛰️</div>
+            </div>
+
+            <div class="shared-space">
+                <div class="shared-concepts">
+                    <h3 style="color: #96ceb4; text-align: center; border: none;">Shared Ground</h3>
+                    <div class="concept-list">
+                        <div class="concept-tag">Cosmic Indifference</div>
+                        <div class="concept-tag">No External Purpose</div>
+                        <div class="concept-tag">Human Responsibility</div>
+                        <div class="concept-tag">Rejection of Easy Answers</div>
+                        <div class="concept-tag">Dignity in Struggle</div>
+                        <div class="concept-tag">Authentic Choice</div>
+                    </div>
+                </div>
+
+                <div class="tension-arrow">⚡ CREATIVE TENSION ⚡</div>
+
+                <div class="key-differences">
+                    <h3 style="color: #feca57; border-color: #feca57;">Key Divergences</h3>
+                    <div class="difference-grid">
+                        <div class="camus-diff">
+                            <strong>Camus:</strong><br>
+                            • Suspicious of systematic knowledge<br>
+                            • Meaning through individual revolt<br>
+                            • Present-focused experience<br>
+                            • Intuitive wisdom
+                        </div>
+                        <div class="monod-diff">
+                            <strong>Monod:</strong><br>
+                            • Science as foundation for ethics<br>
+                            • Collective knowledge project<br>
+                            • Understanding through history<br>
+                            • Rigorous methodology
+                        </div>
+                    </div>
+                </div>
+
+                <div class="shared-concepts">
+                    <h3 style="color: #e17055; border-color: #e17055;">Both Demand</h3>
+                    <p><strong>"Negating the Gods and Raising Rocks"</strong></p>
+                    <p>Rejecting false comforts while actively creating authentic human values</p>
+                </div>
+            </div>
+
+            <div class="scientist-section">
+                <div class="portrait monod-portrait">🧬</div>
+                <h2 style="color: #4ecdc4;">Jacques Monod</h2>
+                <h3>The Scientific Response</h3>
+                
+                <div class="core-insight">
+                    <strong>Core Insight:</strong> Life emerges from pure chance but creates genuine order through molecular mechanisms and natural selection.
+                </div>
+
+                <div class="quote">
+                    The universe was not pregnant with life nor the biosphere with man. Our number came up in the Monte Carlo game.
+                </div>
+
+                <h3>Methodology</h3>
+                <div class="methodology">
+                    • <strong>Empirical:</strong> Based on experimental observation<br>
+                    • <strong>Molecular:</strong> Explains life through chemistry and physics<br>
+                    • <strong>Evolutionary:</strong> Historical understanding through deep time
+                </div>
+
+                <h3>Response to Meaninglessness</h3>
+                <div class="response-path">
+                    <div class="path-step">Objective Knowledge</div>
+                    <div class="arrow">→</div>
+                    <div class="path-step">Ethic of Knowledge</div>
+                    <div class="arrow">→</div>
+                    <div class="path-step">Authentic Society</div>
+                </div>
+
+                <div class="quote">
+                    Man knows at last that he is alone in the universe's unfeeling immensity, out of which he emerged only by chance. The kingdom above or the darkness below: it is for him to choose.
+                </div>
+
+                <div class="dna-visual">🧬</div>
+            </div>
+        </div>
+
+        <div class="divergence">
+            <div class="philosopher-section">
+                <h3>Camus's Path: Individual Revolt</h3>
+                <p><strong>The Absurd Hero:</strong> One who continues to live and act fully while acknowledging life's meaninglessness</p>
+                <ul>
+                    <li>Embrace the contradiction</li>
+                    <li>Live intensely in the present</li>
+                    <li>Create personal meaning through choice</li>
+                    <li>Solidarity through shared struggle</li>
+                </ul>
+                <div class="quote">
+                    The real question is how to live in a world stripped of illusions.
+                </div>
+            </div>
+
+            <div class="scientist-section">
+                <h3>Monod's Path: Collective Knowledge</h3>
+                <p><strong>The Ethic of Knowledge:</strong> A freely chosen commitment to objective truth as the foundation for authentic values</p>
+                <ul>
+                    <li>Accept scientific understanding</li>
+                    <li>Build ethics on objective foundations</li>
+                    <li>Create institutions serving truth</li>
+                    <li>Construct authentic socialism</li>
+                </ul>
+                <div class="quote">
+                    The ethic of knowledge is the only ethic compatible with the modern world.
+                </div>
+            </div>
+        </div>
+
+        <div class="synthesis">
+            <h2>Complementary Visions</h2>
+            <p><strong>Both thinkers offer responses to the same existential crisis:</strong></p>
+            <p>How to live authentically when traditional sources of meaning have collapsed?</p>
+            
+            <div style="margin: 30px 0; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                <p><strong>Camus provides the existential foundation:</strong> Accept the absurd, embrace the struggle</p>
+                <p><strong>Monod provides the scientific foundation:</strong> Understand our origins, choose our values</p>
+            </div>
+            
+            <p>Together, they suggest that authentic human existence requires both <em>accepting our cosmic insignificance</em> and <em>taking full responsibility for creating meaning</em> through conscious choice and action.</p>
+            
+            <div style="margin-top: 30px; font-style: italic; font-size: 1.1rem;">
+                "Each atom of that stone, each mineral flake of that night-filled mountain, in itself forms a world. The struggle itself toward the heights is enough to fill a man's heart."
+            </div>
+        </div>
+    </div>
+</body>
+</html>
