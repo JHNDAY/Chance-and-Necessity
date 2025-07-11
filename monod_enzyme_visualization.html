@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enzyme Stereospecificity - Monod's Molecular Precision</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .subtitle {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-top: 0;
+            font-size: 1.8em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .molecule-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .molecule {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .molecule:hover {
+            transform: scale(1.05);
+        }
+        
+        .fumaric { background: #e8f5e8; border: 2px solid #27ae60; }
+        .maleic { background: #ffeaa7; border: 2px solid #f39c12; }
+        .l-malic { background: #dcedc8; border: 2px solid #8bc34a; }
+        .d-malic { background: #ffcdd2; border: 2px solid #e57373; }
+        
+        .arrow {
+            font-size: 2em;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .reaction-box {
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            border: 2px dashed #667eea;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .key-points {
+            background: #f1c40f20;
+            border-left: 5px solid #f1c40f;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .key-points h3 {
+            color: #f39c12;
+            margin-top: 0;
+        }
+        
+        .specificity-demo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .works {
+            background: #d4edda;
+            border: 2px solid #27ae60;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .blocked {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            opacity: 0.7;
+        }
+        
+        .concept-highlight {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .concept-highlight h3 {
+            color: #8e44ad;
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        
+        .implications {
+            background: #667eea10;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .implications h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        
+        .quote {
+            font-style: italic;
+            font-size: 1.1em;
+            color: #555;
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .molecule-container {
+                flex-direction: column;
+            }
+            
+            .specificity-demo {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Enzyme Stereospecificity</h1>
+            <div class="subtitle">Monod's Demonstration of Molecular Recognition</div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2>🔬 The Two-Fold Specificity of Enzymes</h2>
+                <div class="key-points">
+                    <h3>Monod's Fundamental Observation:</h3>
+                    <ol>
+                        <li><strong>Reaction Specificity:</strong> Each enzyme catalyzes only one type of reaction</li>
+                        <li><strong>Substrate Specificity:</strong> Among many possible compounds, the enzyme acts on only one</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>⚛️ The Fumarase Example: Geometric Isomer Discrimination</h2>
+                
+                <div class="molecule-container">
+                    <div class="molecule fumaric">
+                        <strong>Fumaric Acid</strong><br>
+                        (Trans configuration)<br>
+                        ✅ <em>Enzyme ACTIVE</em>
+                    </div>
+                    
+                    <div class="arrow">VS</div>
+                    
+                    <div class="molecule maleic">
+                        <strong>Maleic Acid</strong><br>
+                        (Cis configuration)<br>
+                        ❌ <em>Enzyme INACTIVE</em>
+                    </div>
+                </div>
+                
+                <div class="reaction-box">
+                    <strong>The Reaction:</strong><br>
+                    Fumaric Acid + H₂O ⇌ Malic Acid<br>
+                    <em>(Catalyzed by Fumarase enzyme)</em>
+                </div>
+                
+                <p><strong>Key Insight:</strong> Despite being chemically equivalent and practically inseparable by classical techniques, the enzyme makes an <em>absolute discrimination</em> between these geometric isomers.</p>
+            </div>
+            
+            <div class="section">
+                <h2>🪞 Optical Isomer Selectivity: The L vs D Mystery</h2>
+                
+                <div class="molecule-container">
+                    <div class="molecule l-malic">
+                        <strong>L-Malic Acid</strong><br>
+                        (Left-handed)<br>
+                        ✅ <em>PRODUCED</em>
+                    </div>
+                    
+                    <div class="arrow">VS</div>
+                    
+                    <div class="molecule d-malic">
+                        <strong>D-Malic Acid</strong><br>
+                        (Right-handed)<br>
+                        ❌ <em>NOT PRODUCED</em>
+                    </div>
+                </div>
+                
+                <div class="specificity-demo">
+                    <div class="works">
+                        <h4>✅ What the Enzyme Does</h4>
+                        <p>Fumaric Acid → <strong>L-Malic Acid ONLY</strong></p>
+                        <p>L-Malic Acid → <strong>Fumaric Acid ONLY</strong></p>
+                    </div>
+                    
+                    <div class="blocked">
+                        <h4>❌ What the Enzyme Cannot Do</h4>
+                        <p>Maleic Acid → No reaction</p>
+                        <p>D-Malic Acid → No production</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="concept-highlight">
+                <h3>💡 The Stereospecific Complex Concept</h3>
+                <p>The reaction occurs within a temporary <strong>"stereospecific complex"</strong> between enzyme and substrate, where the substrate's symmetry is lost through precise molecular positioning.</p>
+            </div>
+            
+            <div class="section">
+                <h2>🎯 Curie's Principle and Asymmetry Creation</h2>
+                <div class="quote">
+                    "According to Curie's very general principle governing the conservation of symmetry, the fact that from an optically symmetrical compound (fumaric acid) an asymmetrical compound is obtained enjoins that it be the enzyme itself that constitutes the 'source' of the asymmetry."
+                </div>
+                
+                <div class="implications">
+                    <h3>Implications:</h3>
+                    <ul>
+                        <li>The enzyme itself must be <strong>optically active</strong> (asymmetric)</li>
+                        <li>The substrate loses its symmetry during the enzyme interaction</li>
+                        <li>This explains why life predominantly uses only <strong>one optical form</strong> of molecules</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🌟 Broader Significance: Molecular "Cognition"</h2>
+                
+                <div class="key-points">
+                    <h3>What This Demonstrates:</h3>
+                    <ul>
+                        <li><strong>Molecular Recognition:</strong> Proteins can "recognize" and discriminate between nearly identical molecules</li>
+                        <li><strong>Information Creation:</strong> The enzyme creates information (binary choice between L and D forms)</li>
+                        <li><strong>Maxwell's Demon Parallel:</strong> Like Maxwell's hypothetical demon, enzymes create order by making precise molecular choices</li>
+                        <li><strong>Foundation of Life's Precision:</strong> This stereospecificity underlies all biological processes</li>
+                    </ul>
+                </div>
+                
+                <div class="concept-highlight">
+                    <h3>🔑 Monod's Central Point</h3>
+                    <p>This molecular precision exemplifies the <strong>"cognitive" properties of proteins</strong> - their ability to recognize, discriminate, and create order. Life's apparent purposefulness emerges from precise molecular interactions, not mystical forces.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🎭 The Paradox of Biological Order</h2>
+                <p>These pages illustrate how life creates extraordinary precision and order at the molecular level through:</p>
+                <ul>
+                    <li><strong>Noncovalent interactions</strong> that are individually weak but collectively precise</li>
+                    <li><strong>Stereospecific recognition</strong> that achieves discrimination impossible by classical chemistry</li>
+                    <li><strong>Energy-driven information creation</strong> that builds complexity from simplicity</li>
+                </ul>
+                
+                <div class="quote">
+                    This is the foundation of Monod's argument that life's apparent teleology (purposefulness) emerges from molecular mechanisms operating according to the laws of physics and chemistry - no vital force required.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
