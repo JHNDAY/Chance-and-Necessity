@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Index - JHNDAY/Chance-and-Necessity</title>
+    <title>Repository Index - JHNDAY/Chance-and-Necessity</title>
     <style>
         :root {
             --primary-color: #0366d6;
@@ -13,14 +13,9 @@
             --border-color: #e1e4e8;
             --hover-color: #f6f8fa;
             --text-color: #24292e;
-            --success-color: #28a745;
-            --warning-color: #ffc107;
-            --danger-color: #dc3545;
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -45,12 +40,6 @@
             color: var(--primary-color);
             font-size: 2em;
             font-weight: 600;
-        }
-
-        .repo-description {
-            color: var(--secondary-color);
-            font-size: 1.1em;
-            margin-bottom: 15px;
         }
 
         .stats {
@@ -78,11 +67,6 @@
             display: block;
         }
 
-        .stat-label {
-            color: var(--secondary-color);
-            font-size: 0.9em;
-        }
-
         .controls {
             background: var(--card-background);
             padding: 20px;
@@ -105,44 +89,20 @@
             font-size: 1em;
         }
 
-        .search-box:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.1);
-        }
-
         .filter-controls {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
         }
 
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .filter-label {
-            font-weight: 500;
-            color: var(--text-color);
-            font-size: 0.9em;
-        }
-
-        select, input[type="date"] {
-            padding: 8px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 0.9em;
-        }
-
-        .view-controls {
+        .view-controls, .sort-controls {
             display: flex;
             gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
-        .view-button {
+        .view-button, .sort-button, .sort-select {
             padding: 8px 16px;
             border: 1px solid var(--border-color);
             background: var(--card-background);
@@ -152,33 +112,7 @@
             transition: all 0.2s;
         }
 
-        .view-button:hover, .view-button.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        .sort-controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .sort-button {
-            padding: 6px 12px;
-            border: 1px solid var(--border-color);
-            background: var(--card-background);
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.85em;
-            transition: all 0.2s;
-        }
-
-        .sort-button:hover {
-            background: var(--hover-color);
-        }
-
-        .sort-button.active {
+        .view-button:hover, .view-button.active, .sort-button:hover, .sort-button.active {
             background: var(--primary-color);
             color: white;
             border-color: var(--primary-color);
@@ -201,12 +135,6 @@
             align-items: center;
         }
 
-        .results-count {
-            color: var(--secondary-color);
-            font-size: 0.9em;
-            font-weight: normal;
-        }
-
         .file-item {
             display: grid;
             grid-template-columns: auto 1fr auto auto auto;
@@ -217,33 +145,7 @@
             transition: background-color 0.2s ease;
         }
 
-        .file-item:hover {
-            background-color: var(--hover-color);
-        }
-
-        .file-item:last-child {
-            border-bottom: none;
-        }
-
-        .file-item.card-view {
-            display: block;
-            padding: 20px;
-            margin: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            background: var(--card-background);
-        }
-
-        .file-icon {
-            font-size: 1.1em;
-            width: 20px;
-            text-align: center;
-            margin-top: 2px;
-        }
-
-        .file-info {
-            min-width: 0;
-        }
+        .file-item:hover { background-color: var(--hover-color); }
 
         .file-name {
             color: var(--primary-color);
@@ -253,14 +155,12 @@
             margin-bottom: 4px;
         }
 
-        .file-name:hover {
-            text-decoration: underline;
-        }
+        .file-name:hover { text-decoration: underline; }
 
         .file-path {
             color: var(--secondary-color);
             font-size: 0.9em;
-            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            font-family: monospace;
             margin-bottom: 4px;
         }
 
@@ -269,31 +169,6 @@
             font-size: 0.85em;
             font-style: italic;
             line-height: 1.3;
-            max-width: 600px;
-        }
-
-        .file-metadata {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 8px;
-            font-size: 0.8em;
-        }
-
-        .metadata-item {
-            background: var(--background-color);
-            padding: 2px 6px;
-            border-radius: 3px;
-            color: var(--secondary-color);
-        }
-
-        .posting-date {
-            background: var(--success-color);
-            color: white;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 0.8em;
-            font-weight: 500;
         }
 
         .file-type {
@@ -312,102 +187,18 @@
             white-space: nowrap;
         }
 
-        .file-actions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .action-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8em;
-            transition: background-color 0.2s;
-        }
-
-        .action-link:hover {
-            background: var(--hover-color);
-        }
-
-        .html-viewer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            display: none;
-        }
-
-        .html-viewer-content {
-            position: relative;
-            width: 90%;
-            height: 90%;
-            margin: 2.5% auto;
-            background: white;
+        .file-card {
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        .html-viewer-header {
-            background: var(--background-color);
-            padding: 15px 20px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .html-viewer-title {
-            font-weight: 600;
-            color: var(--text-color);
-        }
-
-        .html-viewer-close {
-            background: var(--danger-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .html-viewer-close:hover {
-            background: #c82333;
-        }
-
-        .html-viewer-frame {
-            width: 100%;
-            height: calc(100% - 60px);
-            border: none;
-            background: white;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            color: var(--secondary-color);
-            font-style: italic;
-        }
-
-        .keywords {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            margin-top: 5px;
-        }
-
-        .keyword {
-            background: var(--primary-color);
-            color: white;
-            padding: 1px 6px;
-            border-radius: 3px;
-            font-size: 0.7em;
+        .file-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
         }
 
         .footer {
@@ -419,72 +210,27 @@
             font-size: 0.9em;
         }
 
-        .advanced-search {
-            background: var(--background-color);
-            padding: 15px;
-            border-radius: 6px;
-            margin-top: 15px;
-            display: none;
-        }
-
-        .advanced-search.active {
-            display: block;
-        }
-
-        .advanced-search-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: var(--secondary-color);
-        }
-
         @media (max-width: 768px) {
-            .file-item {
-                grid-template-columns: auto 1fr;
-                gap: 10px;
-            }
-
-            .file-type, .file-size, .file-actions {
-                display: none;
-            }
-
-            .search-container {
-                grid-template-columns: 1fr;
-            }
-
-            .filter-controls {
-                grid-template-columns: 1fr;
-            }
-
-            .view-controls, .sort-controls {
-                flex-wrap: wrap;
-            }
+            .file-item { grid-template-columns: auto 1fr; gap: 10px; }
+            .file-type, .file-size { display: none; }
+            .search-container { grid-template-columns: 1fr; }
+            .filter-controls { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body>
-    <div class="header">
-        <h1 class="repo-title">Chance-and-Necessity DataViz Directory</h1>
-        
-        <a href="https://github.com/JHNDAY/Chance-and-Necessity" class="repo-link" target="_blank">View on GitHub →</a>
-    </div>
-
+<body>    <div class="header">
+        <h1 class="repo-title">📁 Chance-and-Necessity Repository Index</h1>    </div>
     <div class="stats">
         <div class="stat-item">
-            <span class="stat-number">23</span>
+            <span class="stat-number">28</span>
             <span class="stat-label">Total Files</span>
         </div>
         <div class="stat-item">
-            <span class="stat-number">23</span>
+            <span class="stat-number">28</span>
             <span class="stat-label">HTML Files</span>
         </div>
         <div class="stat-item">
-            <span class="stat-number">23</span>
+            <span class="stat-number">28</span>
             <span class="stat-label">Files with Dates</span>
         </div>
         <div class="stat-item">
@@ -492,123 +238,99 @@
             <span class="stat-label">File Types</span>
         </div>
         <div class="stat-item">
-            <span class="stat-number">466.1 KB</span>
+            <span class="stat-number">542.3 KB</span>
             <span class="stat-label">Total Size</span>
         </div>
         <div class="stat-item">
-            <span class="stat-number">2025-07-11</span>
+            <span class="stat-number">2025-08-06</span>
             <span class="stat-label">Generated</span>
         </div>
     </div>
 
     <div class="controls">
         <div class="search-container">
-            <input type="text" class="search-box" id="searchBox" placeholder="Search files, descriptions, authors, keywords..." onkeyup="performSearch()">
+            <input type="text" class="search-box" id="searchBox" placeholder="Search files, descriptions, authors, keywords...">
+            <button class="view-button" onclick="clearFilters()">Clear Filters</button>
             <button class="view-button" onclick="toggleAdvancedSearch()">Advanced Search</button>
-            <button class="view-button" onclick="clearAllFilters()">Clear Filters</button>
-        </div>
-
-        <div class="advanced-search" id="advancedSearch">
-            <div class="advanced-search-grid">
-                <div class="filter-group">
-                    <label class="filter-label">File Type</label>
-                    <select id="typeFilter" onchange="performSearch()">
-                        <option value="">All Types</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label class="filter-label">Date From</label>
-                    <input type="date" id="dateFromFilter" onchange="performSearch()">
-                </div>
-                <div class="filter-group">
-                    <label class="filter-label">Date To</label>
-                    <input type="date" id="dateToFilter" onchange="performSearch()">
-                </div>
-                <div class="filter-group">
-                    <label class="filter-label">Author</label>
-                    <select id="authorFilter" onchange="performSearch()">
-                        <option value="">All Authors</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label class="filter-label">File Size</label>
-                    <select id="sizeFilter" onchange="performSearch()">
-                        <option value="">All Sizes</option>
-                        <option value="small">Small (&lt; 10KB)</option>
-                        <option value="medium">Medium (10KB - 100KB)</option>
-                        <option value="large">Large (&gt; 100KB)</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label class="filter-label">Extension</label>
-                    <select id="extensionFilter" onchange="performSearch()">
-                        <option value="">All Extensions</option>
-                    </select>
-                </div>
-            </div>
         </div>
 
         <div class="filter-controls">
             <div class="view-controls">
                 <span>View:</span>
-                <button class="view-button active" id="listView" onclick="setView('list')">List</button>
-                <button class="view-button" id="cardView" onclick="setView('card')">Cards</button>
+                <button class="view-button active" id="listView" onclick="switchToListView()">List</button>
+                <button class="view-button" id="cardView" onclick="switchToCardView()">Cards</button>
             </div>
             <div class="sort-controls">
                 <span>Sort by:</span>
-                <button class="sort-button active" data-sort="name" onclick="sortFiles('name')">Name</button>
-                <button class="sort-button" data-sort="date" onclick="sortFiles('date')">Date</button>
-                <button class="sort-button" data-sort="size" onclick="sortFiles('size')">Size</button>
-                <button class="sort-button" data-sort="type" onclick="sortFiles('type')">Type</button>
+                <select class="sort-select" id="sortField" onchange="applySorting()">
+                    <option value="name">File Name</option>
+                    <option value="posting_date">Posting Date</option>
+                    <option value="size">File Size</option>
+                    <option value="type">File Type</option>
+                </select>
+                <button class="sort-button" id="sortOrder" onclick="toggleSortOrder()">Ascending ↑</button>
             </div>
         </div>
     </div>
 
     <div class="file-list">
         <div class="file-list-header">
-            <span>📁 Repository Files</span>
-            <span class="results-count" id="resultsCount">23 files</span>
+            <span>📋 Repository Files</span>
+            <span class="results-count" id="resultsCount">28 files</span>
         </div>
         <div id="fileContainer">
-            <div class="loading">Loading files...</div>
-        </div>
-        <div id="noResults" class="no-results" style="display: none;">
-            No files found matching your criteria.
-        </div>
-    </div>
-
-    <!-- HTML Viewer Modal -->
-    <div id="htmlViewer" class="html-viewer">
-        <div class="html-viewer-content">
-            <div class="html-viewer-header">
-                <span id="htmlViewerTitle" class="html-viewer-title">Viewing HTML File</span>
-                <button class="html-viewer-close" onclick="closeHTMLViewer()">Close ✕</button>
-            </div>
-            <iframe id="htmlViewerFrame" class="html-viewer-frame" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+            <div>Loading files...</div>
         </div>
     </div>
 
     <div class="footer">
-        Generated on July 11, 2025 at 11:36 AM | 
+        Generated on August 06, 2025 at 05:47 AM |
         <a href="https://github.com/JHNDAY/Chance-and-Necessity" target="_blank">JHNDAY/Chance-and-Necessity</a>
     </div>
 
     <script>
-        // File data
         const allFiles = [
   {
     "name": "Chance_and_Necessity_DataViz_Directory.html",
     "path": "Chance_and_Necessity_DataViz_Directory.html",
-    "size": 51179,
+    "size": 48635,
     "download_url": "https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/Chance_and_Necessity_DataViz_Directory.html",
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/Chance_and_Necessity_DataViz_Directory.html",
-    "sha": "151b72f45cc0fb80cd1d960710c5fdd34ab83fb5",
+    "sha": "20a5c3e79351d975b2e93b6978f901b6e4eb5230",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Interactive Data Visualization Dashboard\" Content explores: Dynamic charts, interactive graphs, and comprehensive data representations with real-time filtering capabilities. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring advanced visualization techniques, user-friendly interfaces, and comprehensive data exploration tools with responsive design elements.",
     "posting_date": "2025-07-11",
-    "author": "Unknown",
+    "author": "JHNDAY",
     "keywords": [],
-    "title": "Index - JHNDAY/Chance-and-Necessity"
+    "title": "Chance And Necessity Data Viz Directory"
+  },
+  {
+    "name": "Jul29Zoom.html",
+    "path": "Jul29Zoom.html",
+    "size": 15752,
+    "download_url": "https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/Jul29Zoom.html",
+    "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/Jul29Zoom.html",
+    "sha": "d29a21c4696d447a6a8a2d41c231a8b6205ae05e",
+    "type": "HTML",
+    "description": "\"Jul29Zoom\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of jul29zoom, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
+    "posting_date": "2025-08-02",
+    "author": "JHNDAY",
+    "keywords": [],
+    "title": "Jul29zoom"
+  },
+  {
+    "name": "KeyTopics.html",
+    "path": "KeyTopics.html",
+    "size": 9964,
+    "download_url": "https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/KeyTopics.html",
+    "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/KeyTopics.html",
+    "sha": "373123b96aa809401e8dcfdda10fe0bf52c8ac09",
+    "type": "HTML",
+    "description": "\"Keytopics\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of keytopics, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
+    "posting_date": "2025-08-02",
+    "author": "JHNDAY",
+    "keywords": [],
+    "title": "Key Topics"
   },
   {
     "name": "Monod_Intellectual_Legacy.html",
@@ -618,11 +340,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/Monod_Intellectual_Legacy.html",
     "sha": "c17a7564033376d032ff94ebfe526242215cfc2c",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Monod Intellectual Legacy\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of monod intellectual legacy, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
     "posting_date": "2025-07-06",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "The Pantheon of Revolutionary Scientific Insights"
+    "title": "Monod Intellectual Legacy"
   },
   {
     "name": "biochemical_russian_novel.html",
@@ -632,11 +354,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/biochemical_russian_novel.html",
     "sha": "4bd51241c7dbb57991d100095d731d75b002dece",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Biochemical Russian Novel\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of biochemical russian novel, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
     "posting_date": "2025-07-06",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Biochemistry: The Russian Novel"
+    "title": "Biochemical Russian Novel"
   },
   {
     "name": "camus_monod_comparison.html",
@@ -646,11 +368,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/camus_monod_comparison.html",
     "sha": "7d80f53ca51a42eb3f291657b91b0ce85f745364",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Camus Monod Comparison\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of camus monod comparison, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
     "posting_date": "2025-07-06",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Camus vs Monod: Philosophy and Science"
+    "title": "Camus Monod Comparison"
   },
   {
     "name": "chance_necessity_visual.html",
@@ -660,11 +382,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/chance_necessity_visual.html",
     "sha": "a450e66f6a5f7d484a45bb84d509102a7f6e3523",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Interactive Data Visualization Dashboard\" Content explores: Dynamic charts, interactive graphs, and comprehensive data representations with real-time filtering capabilities. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring advanced visualization techniques, user-friendly interfaces, and comprehensive data exploration tools with responsive design elements.",
     "posting_date": "2025-07-06",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Chance and Necessity - Visual Summary"
+    "title": "Chance Necessity Visual"
   },
   {
     "name": "cybernetics_visualization.html",
@@ -674,11 +396,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/cybernetics_visualization.html",
     "sha": "b498ccc6072020cc4442b3bac2184d9c2aa512d7",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Interactive Data Visualization Dashboard\" Content explores: Dynamic charts, interactive graphs, and comprehensive data representations with real-time filtering capabilities. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring advanced visualization techniques, user-friendly interfaces, and comprehensive data exploration tools with responsive design elements.",
     "posting_date": "2025-07-11",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Cybernetics: Molecular to Consciousness"
+    "title": "Cybernetics Visualization"
   },
   {
     "name": "daily_molecular_synthesis.html",
@@ -688,11 +410,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/daily_molecular_synthesis.html",
     "sha": "9c4f94dff2b694a6ff6937badc34bb5908c639bc",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Daily Molecular Synthesis\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of daily molecular synthesis, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
     "posting_date": "2025-07-05",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "The Daily Molecular Symphony of Life"
+    "title": "Daily Molecular Synthesis"
   },
   {
     "name": "daily_mutations_visualization.html",
@@ -702,11 +424,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/daily_mutations_visualization.html",
     "sha": "58aad5ae52920a54f37d19b6633ddd269b48c84c",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Interactive Data Visualization Dashboard\" Content explores: Dynamic charts, interactive graphs, and comprehensive data representations with real-time filtering capabilities. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring advanced visualization techniques, user-friendly interfaces, and comprehensive data exploration tools with responsive design elements.",
     "posting_date": "2025-07-05",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "The Daily Dance of Mutations and Repairs"
+    "title": "Daily Mutations Visualization"
   },
   {
     "name": "enzyme_specificity_mechanism.html",
@@ -716,11 +438,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/enzyme_specificity_mechanism.html",
     "sha": "073bb91f29f7f325c089942218191d0925211897",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Enzyme Specificity Mechanism\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of enzyme specificity mechanism, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
     "posting_date": "2025-07-11",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Enzyme Specificity - Monod's Two-Step Mechanism"
+    "title": "Enzyme Specificity Mechanism"
   },
   {
     "name": "fumarase_enzyme_visualization.html",
@@ -730,11 +452,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/fumarase_enzyme_visualization.html",
     "sha": "0e8cc233d7c43fb3421d08e0a7fe9cfa8629d940",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Interactive Data Visualization Dashboard\" Content explores: Dynamic charts, interactive graphs, and comprehensive data representations with real-time filtering capabilities. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring advanced visualization techniques, user-friendly interfaces, and comprehensive data exploration tools with responsive design elements.",
     "posting_date": "2025-07-06",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Fumarase: Molecular Recognition and Selectivity"
+    "title": "Fumarase Enzyme Visualization"
   },
   {
     "name": "fumaric_maleic_geometric_isomers.html",
@@ -744,11 +466,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/fumaric_maleic_geometric_isomers.html",
     "sha": "722620d963ba61246be5c56ab2a443a4128652e3",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Fumaric Maleic Geometric Isomers\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of fumaric maleic geometric isomers, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
     "posting_date": "2025-07-06",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Fumaric Acid vs Maleic Acid - Geometric Isomers"
+    "title": "Fumaric Maleic Geometric Isomers"
   },
   {
     "name": "malic_acid_stereo.html",
@@ -758,11 +480,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/malic_acid_stereo.html",
     "sha": "c2ad739ee37c7cf936bf91867c6225e64dc8fdc0",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Malic Acid Stereo\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of malic acid stereo, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
     "posting_date": "2025-07-06",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Stereoscopic View of D-Malic Acid"
+    "title": "Malic Acid Stereo"
   },
   {
     "name": "maxwell_demon_enzyme_visualization.html",
@@ -772,11 +494,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/maxwell_demon_enzyme_visualization.html",
     "sha": "ccf455a47a08398c8db260feaa3fc897c6a6ef93",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Interactive Data Visualization Dashboard\" Content explores: Dynamic charts, interactive graphs, and comprehensive data representations with real-time filtering capabilities. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring advanced visualization techniques, user-friendly interfaces, and comprehensive data exploration tools with responsive design elements.",
     "posting_date": "2025-07-06",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Maxwell's Demons: Theoretical vs Real"
+    "title": "Maxwell Demon Enzyme Visualization"
   },
   {
     "name": "maxwells_demon_conclusion.html",
@@ -786,11 +508,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/maxwells_demon_conclusion.html",
     "sha": "b5e624045fbf73b743e85bbe34a4bc7e09348702",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Maxwells Demon Conclusion\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of maxwells demon conclusion, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
     "posting_date": "2025-07-11",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Maxwell's Demon - Biological Resolution"
+    "title": "Maxwells Demon Conclusion"
   },
   {
     "name": "maxwells_demons_chapter.html",
@@ -800,11 +522,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/maxwells_demons_chapter.html",
     "sha": "41ac51c6c17015fb6ea05f2fe65ef4ad66a0015b",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Maxwells Demons Chapter\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of maxwells demons chapter, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
     "posting_date": "2025-07-11",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Maxwell's Demons - Monod's Chapter III"
+    "title": "Maxwells Demons Chapter"
   },
   {
     "name": "molecular_discrimination_visualization (1).html",
@@ -814,11 +536,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/molecular_discrimination_visualization%20(1).html",
     "sha": "8ca27c57543962e4c46f14d32ac3ff989cdd8d80",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Interactive Data Visualization Dashboard\" Content explores: Dynamic charts, interactive graphs, and comprehensive data representations with real-time filtering capabilities. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring advanced visualization techniques, user-friendly interfaces, and comprehensive data exploration tools with responsive design elements.",
     "posting_date": "2025-07-06",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Molecular Discrimination and Information Processing"
+    "title": "Molecular Discrimination Visualization (1)"
   },
   {
     "name": "molecular_mechanics_visualization.html",
@@ -828,11 +550,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/molecular_mechanics_visualization.html",
     "sha": "95686abffe470c1cd0f4b4ef42b277715da209a0",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Interactive Data Visualization Dashboard\" Content explores: Dynamic charts, interactive graphs, and comprehensive data representations with real-time filtering capabilities. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring advanced visualization techniques, user-friendly interfaces, and comprehensive data exploration tools with responsive design elements.",
     "posting_date": "2025-07-06",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Molecular Mechanics: The Foundation of Life"
+    "title": "Molecular Mechanics Visualization"
   },
   {
     "name": "monod_enzyme_visualization.html",
@@ -842,11 +564,39 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/monod_enzyme_visualization.html",
     "sha": "fc1abe051558e9be748656f28967f5685fb8cf9c",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Interactive Data Visualization Dashboard\" Content explores: Dynamic charts, interactive graphs, and comprehensive data representations with real-time filtering capabilities. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring advanced visualization techniques, user-friendly interfaces, and comprehensive data exploration tools with responsive design elements.",
     "posting_date": "2025-07-11",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Enzyme Stereospecificity - Monod's Molecular Precision"
+    "title": "Monod Enzyme Visualization"
+  },
+  {
+    "name": "monod_how_vs_why.html",
+    "path": "monod_how_vs_why.html",
+    "size": 26367,
+    "download_url": "https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/monod_how_vs_why.html",
+    "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/monod_how_vs_why.html",
+    "sha": "576edd3763288ca6b1d5e3cf0bd1bc27230332c1",
+    "type": "HTML",
+    "description": "\"Monod How Vs Why\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of monod how vs why, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
+    "posting_date": "2025-08-02",
+    "author": "JHNDAY",
+    "keywords": [],
+    "title": "Monod How Vs Why"
+  },
+  {
+    "name": "monod_objectives_conclusions.html",
+    "path": "monod_objectives_conclusions.html",
+    "size": 17287,
+    "download_url": "https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/monod_objectives_conclusions.html",
+    "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/monod_objectives_conclusions.html",
+    "sha": "e72ebbcb7f77f7f1667fbde6b8c4f483e709e87f",
+    "type": "HTML",
+    "description": "\"Monod Objectives Conclusions\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of monod objectives conclusions, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
+    "posting_date": "2025-08-02",
+    "author": "JHNDAY",
+    "keywords": [],
+    "title": "Monod Objectives Conclusions"
   },
   {
     "name": "monod_paradox_visualization.html",
@@ -856,11 +606,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/monod_paradox_visualization.html",
     "sha": "8661f48da32306cf17db3fb59e66cc0917eb0a66",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Interactive Data Visualization Dashboard\" Content explores: Dynamic charts, interactive graphs, and comprehensive data representations with real-time filtering capabilities. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring advanced visualization techniques, user-friendly interfaces, and comprehensive data exploration tools with responsive design elements.",
     "posting_date": "2025-07-06",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "The Monod Paradox"
+    "title": "Monod Paradox Visualization"
   },
   {
     "name": "proteins_teleonomic_agents.html",
@@ -870,11 +620,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/proteins_teleonomic_agents.html",
     "sha": "4daf48f93321eb669db1c8d7cfb7d3796a1a07c7",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Proteins Teleonomic Agents\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of proteins teleonomic agents, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
     "posting_date": "2025-07-11",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Proteins: Molecular Agents of Teleonomy"
+    "title": "Proteins Teleonomic Agents"
   },
   {
     "name": "sequencing_comparison.html",
@@ -884,11 +634,25 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/sequencing_comparison.html",
     "sha": "3edbf5ee38fa75952e92e6950ebd5cab2f11036f",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Sequencing Comparison\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of sequencing comparison, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
     "posting_date": "2025-07-05",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Protein Sequencing Evolution"
+    "title": "Sequencing Comparison"
+  },
+  {
+    "name": "shannon_conversation_viz.html",
+    "path": "shannon_conversation_viz.html",
+    "size": 11179,
+    "download_url": "https://raw.githubusercontent.com/JHNDAY/Chance-and-Necessity/main/shannon_conversation_viz.html",
+    "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/shannon_conversation_viz.html",
+    "sha": "3bdea0814479c4b420f1ca732ad1f0828f4b37d0",
+    "type": "HTML",
+    "description": "\"Interactive Data Visualization Dashboard\" Content explores: Dynamic charts, interactive graphs, and comprehensive data representations with real-time filtering capabilities. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring advanced visualization techniques, user-friendly interfaces, and comprehensive data exploration tools with responsive design elements.",
+    "posting_date": "2025-08-06",
+    "author": "JHNDAY",
+    "keywords": [],
+    "title": "Shannon Conversation Viz"
   },
   {
     "name": "stereospecific_complex_concept.html",
@@ -898,11 +662,11 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/stereospecific_complex_concept.html",
     "sha": "c280316dbcb4670b47ad02606b83cb48249ef601",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Stereospecific Complex Concept\" Content explores: Interactive web content with comprehensive analysis and engaging multimedia elements. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring detailed examination of stereospecific complex concept, expert commentary, and contextual background information designed to inform and educate visitors through immersive digital experiences.",
     "posting_date": "2025-07-11",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Stereospecific Complex - Monod's Central Concept"
+    "title": "Stereospecific Complex Concept"
   },
   {
     "name": "stereospecific_complex_visualization.html",
@@ -912,291 +676,180 @@
     "html_url": "https://github.com/JHNDAY/Chance-and-Necessity/blob/main/stereospecific_complex_visualization.html",
     "sha": "90a320872178a56f73b8d35e47c9ca1a872454fc",
     "type": "HTML",
-    "description": "HTML source file",
+    "description": "\"Interactive Data Visualization Dashboard\" Content explores: Dynamic charts, interactive graphs, and comprehensive data representations with real-time filtering capabilities. This content provides valuable information and insights designed for audience engagement and knowledge sharing, featuring advanced visualization techniques, user-friendly interfaces, and comprehensive data exploration tools with responsive design elements.",
     "posting_date": "2025-07-06",
     "author": "JHNDAY",
     "keywords": [],
-    "title": "Stereospecific Complex: The Master Key"
+    "title": "Stereospecific Complex Visualization"
   }
 ];
         let filteredFiles = [...allFiles];
-        let currentSort = 'name';
-        let sortAscending = true;
         let currentView = 'list';
-
-        // Initialize the interface
-        document.addEventListener('DOMContentLoaded', function() {
-            populateFilterOptions();
-            renderFiles();
-        });
-
-        function populateFilterOptions() {
-            const types = new Set();
-            const authors = new Set();
-            const extensions = new Set();
-
-            allFiles.forEach(file => {
-                types.add(file.type);
-                if (file.author && file.author !== 'Unknown') {
-                    authors.add(file.author);
-                }
-                const ext = file.name.split('.').pop().toLowerCase();
-                if (ext && ext !== file.name.toLowerCase()) {
-                    extensions.add(ext);
-                }
-            });
-
-            populateSelect('typeFilter', Array.from(types).sort());
-            populateSelect('authorFilter', Array.from(authors).sort());
-            populateSelect('extensionFilter', Array.from(extensions).sort());
-        }
-
-        function populateSelect(selectId, options) {
-            const select = document.getElementById(selectId);
-            options.forEach(option => {
-                const optionElement = document.createElement('option');
-                optionElement.value = option;
-                optionElement.textContent = option;
-                select.appendChild(optionElement);
-            });
-        }
+        let currentSortField = 'name';
+        let currentSortOrder = 'asc';
 
         function performSearch() {
-            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
-            const typeFilter = document.getElementById('typeFilter').value;
-            const dateFromFilter = document.getElementById('dateFromFilter').value;
-            const dateToFilter = document.getElementById('dateToFilter').value;
-            const authorFilter = document.getElementById('authorFilter').value;
-            const sizeFilter = document.getElementById('sizeFilter').value;
-            const extensionFilter = document.getElementById('extensionFilter').value;
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase().trim();
 
-            filteredFiles = allFiles.filter(file => {
-                // Text search
-                const searchableText = [
-                    file.name,
-                    file.path,
-                    file.description,
-                    file.title,
-                    file.author,
-                    ...(file.keywords || [])
-                ].join(' ').toLowerCase();
-
-                const matchesSearch = !searchTerm || searchableText.includes(searchTerm);
-
-                // Type filter
-                const matchesType = !typeFilter || file.type === typeFilter;
-
-                // Date filters
-                const fileDate = file.posting_date !== 'Unknown' ? file.posting_date : null;
-                const matchesDateFrom = !dateFromFilter || !fileDate || fileDate >= dateFromFilter;
-                const matchesDateTo = !dateToFilter || !fileDate || fileDate <= dateToFilter;
-
-                // Author filter
-                const matchesAuthor = !authorFilter || file.author === authorFilter;
-
-                // Size filter
-                let matchesSize = true;
-                if (sizeFilter) {
-                    const size = file.size;
-                    switch (sizeFilter) {
-                        case 'small':
-                            matchesSize = size < 10240; // 10KB
-                            break;
-                        case 'medium':
-                            matchesSize = size >= 10240 && size < 102400; // 10KB - 100KB
-                            break;
-                        case 'large':
-                            matchesSize = size >= 102400; // > 100KB
-                            break;
-                    }
-                }
-
-                // Extension filter
-                const fileExt = file.name.split('.').pop().toLowerCase();
-                const matchesExtension = !extensionFilter || fileExt === extensionFilter;
-
-                return matchesSearch && matchesType && matchesDateFrom && 
-                       matchesDateTo && matchesAuthor && matchesSize && matchesExtension;
-            });
-
-            sortFiles(currentSort, false);
-            renderFiles();
-        }
-
-        function sortFiles(sortBy, toggleDirection = true) {
-            if (toggleDirection && currentSort === sortBy) {
-                sortAscending = !sortAscending;
-            } else if (toggleDirection) {
-                sortAscending = true;
+            if (!searchTerm) {
+                filteredFiles = [...allFiles];
+            } else {
+                filteredFiles = allFiles.filter(file => {
+                    return file.name.toLowerCase().includes(searchTerm) ||
+                           file.path.toLowerCase().includes(searchTerm) ||
+                           file.description.toLowerCase().includes(searchTerm) ||
+                           file.type.toLowerCase().includes(searchTerm) ||
+                           file.author.toLowerCase().includes(searchTerm) ||
+                           file.title.toLowerCase().includes(searchTerm);
+                });
             }
 
-            currentSort = sortBy;
-
-            // Update sort button styles
-            document.querySelectorAll('.sort-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`[data-sort="${sortBy}"]`).classList.add('active');
-
-            filteredFiles.sort((a, b) => {
-                let aVal, bVal;
-
-                switch (sortBy) {
-                    case 'name':
-                        aVal = a.name.toLowerCase();
-                        bVal = b.name.toLowerCase();
-                        break;
-                    case 'date':
-                        aVal = a.posting_date === 'Unknown' ? '0000-00-00' : a.posting_date;
-                        bVal = b.posting_date === 'Unknown' ? '0000-00-00' : b.posting_date;
-                        break;
-                    case 'size':
-                        aVal = a.size;
-                        bVal = b.size;
-                        break;
-                    case 'type':
-                        aVal = a.type.toLowerCase();
-                        bVal = b.type.toLowerCase();
-                        break;
-                    default:
-                        return 0;
-                }
-
-                if (aVal < bVal) return sortAscending ? -1 : 1;
-                if (aVal > bVal) return sortAscending ? 1 : -1;
-                return 0;
-            });
-
+            applySorting();
             renderFiles();
         }
 
-        function setView(viewType) {
-            currentView = viewType;
+        function applySorting() {
+            const field = currentSortField;
+            const order = currentSortOrder;
 
-            // Update view button styles
-            document.querySelectorAll('.view-button').forEach(btn => {
-                btn.classList.remove('active');
+            filteredFiles.sort((a, b) => {
+                let aVal = a[field];
+                let bVal = b[field];
+
+                if (field === 'posting_date') {
+                    if (aVal === 'Unknown') aVal = '0000-00-00';
+                    if (bVal === 'Unknown') bVal = '0000-00-00';
+                }
+
+                if (field === 'size') {
+                    aVal = parseInt(aVal) || 0;
+                    bVal = parseInt(bVal) || 0;
+                }
+
+                if (typeof aVal === 'string' && typeof bVal === 'string') {
+                    aVal = aVal.toLowerCase();
+                    bVal = bVal.toLowerCase();
+                }
+
+                let comparison = 0;
+                if (aVal < bVal) comparison = -1;
+                else if (aVal > bVal) comparison = 1;
+
+                return order === 'asc' ? comparison : -comparison;
             });
-            document.getElementById(viewType + 'View').classList.add('active');
+        }
 
+        function toggleSortOrder() {
+            currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
+            const button = document.getElementById('sortOrder');
+            button.textContent = currentSortOrder === 'asc' ? 'Ascending ↑' : 'Descending ↓';
+            button.classList.toggle('active');
+
+            applySorting();
+            renderFiles();
+        }
+
+        function clearFilters() {
+            document.getElementById('searchBox').value = '';
+            document.getElementById('sortField').value = 'name';
+            currentSortField = 'name';
+            currentSortOrder = 'asc';
+            document.getElementById('sortOrder').textContent = 'Ascending ↑';
+            document.getElementById('sortOrder').classList.remove('active');
+
+            filteredFiles = [...allFiles];
+            applySorting();
+            renderFiles();
+        }
+
+        function toggleAdvancedSearch() {
+            alert('Advanced search supports: file names, paths, descriptions, types, authors, and titles.');
+        }
+
+        function switchToListView() {
+            currentView = 'list';
+            document.getElementById('listView').classList.add('active');
+            document.getElementById('cardView').classList.remove('active');
+            renderFiles();
+        }
+
+        function switchToCardView() {
+            currentView = 'card';
+            document.getElementById('cardView').classList.add('active');
+            document.getElementById('listView').classList.remove('active');
             renderFiles();
         }
 
         function renderFiles() {
             const container = document.getElementById('fileContainer');
-            const noResults = document.getElementById('noResults');
             const resultsCount = document.getElementById('resultsCount');
 
-            resultsCount.textContent = `${filteredFiles.length} files`;
+            resultsCount.textContent = filteredFiles.length + ' files';
 
             if (filteredFiles.length === 0) {
-                container.innerHTML = '';
-                noResults.style.display = 'block';
+                container.innerHTML = '<div style="text-align: center; padding: 40px; color: #586069;">No files found matching your search criteria.</div>';
                 return;
             }
 
-            noResults.style.display = 'none';
-
             if (currentView === 'card') {
-                container.innerHTML = filteredFiles.map(file => createCardHTML(file)).join('');
+                let cardHTML = '';
+                filteredFiles.forEach(function(file) {
+                    const postingDate = file.posting_date !== 'Unknown' ? file.posting_date : '';
+                    const authorInfo = file.author !== 'Unknown' ? file.author : '';
+                    cardHTML += '<div class="file-card">' +
+                        '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">' +
+                            '<div style="display: flex; align-items: center; gap: 8px;">' +
+                                '<div>🌐</div>' +
+                                (postingDate ? '<div style="color: #586069; font-size: 0.75em; background: #f1f3f4; padding: 2px 6px; border-radius: 3px;">📅 ' + postingDate + '</div>' : '') +
+                            '</div>' +
+                            '<div class="file-type">' + file.type + '</div>' +
+                        '</div>' +
+                        '<div style="margin-bottom: 15px;">' +
+                            '<a href="https://jhnday.github.io/Chance-and-Necessity/' + file.path + '" class="file-name" target="_blank">' + file.name + '</a>' +
+                            '<div class="file-path">' + file.path + '</div>' +
+                            (authorInfo ? '<div style="color: #586069; font-size: 0.8em; margin: 4px 0;">👤 ' + authorInfo + '</div>' : '') +
+                            '<div class="file-description">' + file.description + '</div>' +
+                        '</div>' +
+                        '<div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid var(--border-color);">' +
+                            '<div style="font-size: 0.8em; color: #586069;">' + formatFileSize(file.size) + '</div>' +
+                            '<div><a href="' + file.download_url + '" target="_blank" title="Download" style="color: var(--primary-color); text-decoration: none; padding: 4px 8px; border-radius: 4px; transition: background-color 0.2s;">⬇️</a></div>' +
+                        '</div>' +
+                    '</div>';
+                });
+                container.innerHTML = cardHTML;
+                container.style.display = 'grid';
+                container.style.gridTemplateColumns = 'repeat(auto-fill, minmax(350px, 1fr))';
+                container.style.gap = '20px';
+                container.style.padding = '20px';
             } else {
-                container.innerHTML = filteredFiles.map(file => createListHTML(file)).join('');
+                let listHTML = '';
+                filteredFiles.forEach(function(file) {
+                    const postingDate = file.posting_date !== 'Unknown' ? file.posting_date : '';
+                    const authorInfo = file.author !== 'Unknown' ? file.author : '';
+                    listHTML += '<div class="file-item">' +
+                        '<div style="display: flex; align-items: center; gap: 8px;">' +
+                            '<div>🌐</div>' +
+                            (postingDate ? '<div style="color: #586069; font-size: 0.75em; background: #f1f3f4; padding: 2px 6px; border-radius: 3px; white-space: nowrap;">📅 ' + postingDate + '</div>' : '') +
+                        '</div>' +
+                        '<div>' +
+                            '<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">' +
+                                '<a href="https://jhnday.github.io/Chance-and-Necessity/' + file.path + '" class="file-name" target="_blank">' + file.name + '</a>' +
+                                (authorInfo ? '<div style="color: #586069; font-size: 0.75em; background: #e3f2fd; padding: 2px 6px; border-radius: 3px;">👤 ' + authorInfo + '</div>' : '') +
+                            '</div>' +
+                            '<div class="file-path">' + file.path + '</div>' +
+                            '<div class="file-description">' + file.description + '</div>' +
+                        '</div>' +
+                        '<div class="file-type">' + file.type + '</div>' +
+                        '<div class="file-size">' + formatFileSize(file.size) + '</div>' +
+                        '<div><a href="' + file.download_url + '" target="_blank" title="Download" style="color: var(--primary-color); text-decoration: none; padding: 4px 8px; border-radius: 4px; transition: background-color 0.2s;">⬇️</a></div>' +
+                    '</div>';
+                });
+                container.innerHTML = listHTML;
+                container.style.display = 'block';
+                container.style.gridTemplateColumns = '';
+                container.style.gap = '';
+                container.style.padding = '';
             }
-        }
-
-        function createListHTML(file) {
-            const icon = getFileIcon(file.name);
-            const displayUrl = getDisplayUrl(file);
-            const postingDate = file.posting_date !== 'Unknown' ? file.posting_date : '';
-            const keywords = file.keywords || [];
-
-            let linkHTML;
-            if (file.name.toLowerCase().endsWith('.html') || file.name.toLowerCase().endsWith('.htm')) {
-                const githubPagesUrl = `https://jhnday.github.io/Chance-and-Necessity/${file.path}`;
-                linkHTML = `<a href="javascript:void(0)" 
-                            onclick="openHTMLViewer('${file.download_url}', '${file.name}')" 
-                            oncontextmenu="window.open('${githubPagesUrl}', '_blank'); return false;"
-                            class="file-name" 
-                            title="Left-click: Modal view | Right-click: GitHub Pages URL">${file.name}</a>`;
-            } else {
-                linkHTML = `<a href="${displayUrl}" class="file-name" target="_blank">${file.name}</a>`;
-            }
-
-            return `
-                <div class="file-item">
-                    <div class="file-icon">${icon}</div>
-                    <div class="file-info">
-                        ${linkHTML}
-                        <div class="file-path">${file.path}</div>
-                        <div class="file-description">${file.description}</div>
-                        <div class="file-metadata">
-                            ${postingDate ? `<span class="posting-date">📅 ${postingDate}</span>` : ''}
-                            ${file.author !== 'Unknown' ? `<span class="metadata-item">👤 ${file.author}</span>` : ''}
-                            ${file.title !== file.name ? `<span class="metadata-item">📝 ${file.title}</span>` : ''}
-                        </div>
-                        ${keywords.length > 0 ? `<div class="keywords">${keywords.map(k => `<span class="keyword">${k}</span>`).join('')}</div>` : ''}
-                    </div>
-                    <div class="file-type">${file.type}</div>
-                    <div class="file-size">${formatFileSize(file.size)}</div>
-                    <div class="file-actions">
-                        <a href="${file.download_url}" class="action-link" target="_blank" title="Download">⬇️</a>
-                        <a href="${file.html_url}" class="action-link" target="_blank" title="View on GitHub">👁️</a>
-                    </div>
-                </div>
-            `;
-        }
-
-        function createCardHTML(file) {
-            const icon = getFileIcon(file.name);
-            const displayUrl = getDisplayUrl(file);
-            const postingDate = file.posting_date !== 'Unknown' ? file.posting_date : '';
-            const keywords = file.keywords || [];
-
-            return `
-                <div class="file-item card-view">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <span class="file-icon" style="font-size: 1.5em;">${icon}</span>
-                        <div style="flex: 1;">
-                            <a href="${displayUrl}" class="file-name" target="_blank" style="font-size: 1.1em;">${file.name}</a>
-                            <div class="file-path">${file.path}</div>
-                        </div>
-                        <span class="file-type">${file.type}</span>
-                    </div>
-                    <div class="file-description" style="margin-bottom: 10px;">${file.description}</div>
-                    <div class="file-metadata" style="margin-bottom: 10px;">
-                        ${postingDate ? `<span class="posting-date">📅 ${postingDate}</span>` : ''}
-                        ${file.author !== 'Unknown' ? `<span class="metadata-item">👤 ${file.author}</span>` : ''}
-                        <span class="metadata-item">📏 ${formatFileSize(file.size)}</span>
-                    </div>
-                    ${keywords.length > 0 ? `<div class="keywords">${keywords.map(k => `<span class="keyword">${k}</span>`).join('')}</div>` : ''}
-                    <div style="margin-top: 10px;">
-                        <a href="${file.download_url}" class="action-link" target="_blank">Download</a>
-                        <a href="${file.html_url}" class="action-link" target="_blank">View on GitHub</a>
-                    </div>
-                </div>
-            `;
-        }
-
-        function getFileIcon(filename) {
-            const extension = filename.split('.').pop().toLowerCase();
-            const icons = {
-                'py': '🐍', 'js': '📜', 'html': '🌐', 'css': '🎨', 'md': '📝',
-                'txt': '📄', 'json': '📋', 'xml': '📊', 'yml': '⚙️', 'yaml': '⚙️',
-                'sh': '💻', 'bat': '💻', 'sql': '🗃️', 'r': '📈', 'cpp': '⚡',
-                'c': '⚡', 'java': '☕', 'php': '🐘', 'rb': '💎', 'go': '🐹',
-                'rs': '🦀', 'ts': '📘', 'jsx': '⚛️', 'vue': '💚', 'scss': '🎨',
-                'pdf': '📕', 'png': '🖼️', 'jpg': '🖼️', 'jpeg': '🖼️', 'gif': '🖼️',
-                'zip': '📦', 'log': '📋'
-            };
-            return icons[extension] || '📄';
-        }
-
-        function getDisplayUrl(file) {
-            const extension = file.name.split('.').pop().toLowerCase();
-            if (extension === 'html' || extension === 'htm') {
-                return `https://jhnday.github.io/Chance-and-Necessity/${file.path}`;
-            }
-            return file.download_url;
         }
 
         function formatFileSize(bytes) {
@@ -1208,70 +861,25 @@
                 size /= 1024;
                 unitIndex++;
             }
-            return `${size.toFixed(1)} ${units[unitIndex]}`;
+            return size.toFixed(1) + ' ' + units[unitIndex];
         }
 
-        function toggleAdvancedSearch() {
-            const advancedSearch = document.getElementById('advancedSearch');
-            advancedSearch.classList.toggle('active');
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchBox = document.getElementById('searchBox');
+            searchBox.addEventListener('input', performSearch);
+            searchBox.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
 
-        function clearAllFilters() {
-            document.getElementById('searchBox').value = '';
-            document.getElementById('typeFilter').value = '';
-            document.getElementById('dateFromFilter').value = '';
-            document.getElementById('dateToFilter').value = '';
-            document.getElementById('authorFilter').value = '';
-            document.getElementById('sizeFilter').value = '';
-            document.getElementById('extensionFilter').value = '';
-            performSearch();
-        }
+            document.getElementById('sortField').addEventListener('change', function() {
+                currentSortField = this.value;
+                applySorting();
+                renderFiles();
+            });
 
-        function openHTMLViewer(rawUrl, filename) {
-            const viewer = document.getElementById('htmlViewer');
-            const frame = document.getElementById('htmlViewerFrame');
-            const title = document.getElementById('htmlViewerTitle');
-
-            title.textContent = `Viewing: ${filename}`;
-
-            fetch(rawUrl)
-                .then(response => response.text())
-                .then(html => {
-                    const blob = new Blob([html], { type: 'text/html' });
-                    const blobUrl = URL.createObjectURL(blob);
-                    frame.src = blobUrl;
-                    viewer.style.display = 'block';
-                })
-                .catch(error => {
-                    console.error('Error loading HTML:', error);
-                    frame.src = rawUrl;
-                    viewer.style.display = 'block';
-                });
-        }
-
-        function closeHTMLViewer() {
-            const viewer = document.getElementById('htmlViewer');
-            const frame = document.getElementById('htmlViewerFrame');
-            viewer.style.display = 'none';
-            frame.src = 'about:blank';
-        }
-
-        // Close viewer when clicking outside
-        document.getElementById('htmlViewer').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeHTMLViewer();
-            }
-        });
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.key === 'f') {
-                e.preventDefault();
-                document.getElementById('searchBox').focus();
-            }
-            if (e.key === 'Escape') {
-                closeHTMLViewer();
-            }
+            renderFiles();
         });
     </script>
 </body>
