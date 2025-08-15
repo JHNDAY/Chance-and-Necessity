@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chance and Necessity</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #4682b4 0%, #5a90c4 100%);
+            min-height: 100vh;
+            color: #495057;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(176, 196, 222, 0.9);
+            border-radius: 20px;
+            padding: 50px 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(176, 196, 222, 0.7);
+        }
+
+        .header h1 {
+            font-size: 3.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #6c757d, #495057);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            letter-spacing: -0.02em;
+        }
+
+        .header .motto {
+            font-size: 18px !important;
+            color: #343a40 !important;
+            font-style: italic;
+            font-family: 'Times New Roman', serif;
+            letter-spacing: 0.8px;
+            margin-top: 25px;
+            font-weight: 600 !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: block;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+            margin-top: 30px;
+        }
+
+        .section {
+            background: rgba(176, 196, 222, 0.8);
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(176, 196, 222, 0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 200px;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #495057;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
+            color: #adb5bd;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .empty-state::before {
+            content: "📚";
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            opacity: 0.6;
+        }
+
+        .section[data-section="resources"] .empty-state::before {
+            content: "📚";
+        }
+
+        .section[data-section="agenda"] .empty-state::before {
+            content: "📋";
+        }
+
+        .section[data-section="sessions"] .empty-state::before {
+            content: "🎓";
+        }
+
+        .section[data-section="articles"] .empty-state::before {
+            content: "📄";
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            max-width: 250px;
+            line-height: 1.4;
+        }
+
+        .zoom-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #9999dd, #8888cc);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(153, 153, 221, 0.25);
+            font-family: 'Georgia', serif;
+            font-size: 1.1rem;
+        }
+
+        .zoom-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(153, 153, 221, 0.35);
+            background: linear-gradient(45deg, #8888cc, #7777bb);
+        }
+
+        .idea-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #9999dd, #8888cc);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 15px 10px 10px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(153, 153, 221, 0.25);
+            font-family: 'Georgia', serif;
+            font-size: 1.1rem;
+        }
+
+        .idea-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(153, 153, 221, 0.35);
+            background: linear-gradient(45deg, #8888cc, #7777bb);
+        }
+
+        .resource-item {
+            background: linear-gradient(45deg, #add8e6, #b0c4de);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #4682b4;
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            box-shadow: 0 3px 10px rgba(108, 117, 125, 0.15);
+            transform: translateX(3px);
+        }
+
+        .resource-item h3 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .link-btn {
+            background: linear-gradient(45deg, #9999dd, #8888cc);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Georgia', serif;
+        }
+
+        .link-btn:hover {
+            background: linear-gradient(45deg, #8888cc, #7777bb);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.8rem;
+            }
+            
+            .header .motto {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Subtle animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Chance and Necessity</h1>
+            <a href="https://jhnday.github.io/Chance-and-Necessity/chance_necessity_visual.html" class="idea-link" target="_blank" rel="noopener noreferrer">💡 The Idea</a>
+            <p class="motto">Everything existing in the<br>Universe is the fruit of<br>chance and of necessity.<br>- DEMOCRITUS</p>
+            <a href="https://brandeis.zoom.us/j/94020241474?pwd=RJcU2jMaglb4kx09RtpTlpUgTRbKgV.1" class="zoom-link" target="_blank" rel="noopener noreferrer">🎥 Zoom</a>
+        </div>
+
+        <div class="content-grid">
+            <div class="section" data-section="resources">
+                <h2>Resources</h2>
+                <div class="resource-item">
+                    <h3>AI Agents</h3>
+                    <div class="links">
+                        <a href="https://gemini.google.com/" class="link-btn" target="_blank" rel="noopener noreferrer">🤖 Gemini</a>
+                        <a href="https://chat.openai.com/" class="link-btn" target="_blank" rel="noopener noreferrer">💬 ChatGPT</a>
+                        <a href="https://claude.ai/chats" class="link-btn" target="_blank" rel="noopener noreferrer">🧠 Claude</a>
+                    </div>
+                </div>
+                <div class="resource-item">
+                    <h3>References</h3>
+                    <div class="links">
+                        <a href="https://drive.google.com/file/d/1b8-00qDefzEOuK1wGWQU9Tgnqmdunhqj/view?usp=drive_link" class="link-btn" target="_blank" rel="noopener noreferrer">📄 Chance and Necessity (PDF)</a>
+                        <a href="https://jhnday.github.io/Chance-and-Necessity/Chance_and_Necessity_DataViz_Directory.html" class="link-btn" target="_blank" rel="noopener noreferrer">📊 Data Viz Index</a>
+                        <a href="https://drive.google.com/drive/folders/1-0zVzOpUxIAEVehZk7Q1Y6ZuW4BxXOlZ?usp=drive_link" class="link-btn" target="_blank" rel="noopener noreferrer">📁 Repository</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" data-section="agenda">
+                <h2>Current Agenda</h2>
+                <div style="color: #495057; line-height: 1.6;">
+                    <p style="margin-bottom: 15px; font-weight: 600;">Discuss the objectives</p>
+                    <ul style="margin-left: 20px; margin-bottom: 0;">
+                        <li style="margin-bottom: 8px;">Explore and analyze Chance and Necessity with AI tools
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li style="margin-bottom: 8px;">Produce a presentation that describes the meaning and impact of this work that will be accessible to people who are not bio-chemists/physicists</li>
+                                <li style="margin-bottom: 8px;">Report on the use of AI tools</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 8px;">Introduction to infrastructure</li>
+                        <li style="margin-bottom: 8px;">Overview of Chance and Necessity</li>
+                        <li style="margin-bottom: 8px;">Form team and assign chapters sections to team members</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" data-section="sessions">
+                <h2>Previous Sessions</h2>
+                <div class="resource-item">
+                    <h3>Preliminary Session - Jul 29</h3>
+                    <div class="links">
+                        <a href="https://jhnday.github.io/Chance-and-Necessity/Jul29Zoom.html" class="link-btn" target="_blank" rel="noopener noreferrer">📹 Session Summary</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
