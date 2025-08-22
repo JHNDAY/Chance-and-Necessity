@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitalisms and Animisms - Visual Summary</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #2c1810 0%, #8b4513 50%, #d2691e 100%);
+            color: #f5f5dc;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 2.8rem;
+            color: #ffd700;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-size: 1.4rem;
+            color: #daa520;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+        
+        .central-dilemma {
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.2), rgba(0, 0, 255, 0.2));
+            border: 3px solid #ff6b35;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .central-dilemma::before {
+            content: "⚡";
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 3rem;
+            animation: pulse 2s infinite;
+        }
+        
+        .dilemma-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .concept-box {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 200px;
+            text-align: center;
+        }
+        
+        .vs {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ff6b35;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .theory-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 50px 0;
+        }
+        
+        .theory-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid;
+            position: relative;
+        }
+        
+        .vitalism {
+            border-color: #32cd32;
+            background: linear-gradient(135deg, rgba(50, 205, 50, 0.1), rgba(0, 100, 0, 0.1));
+        }
+        
+        .animism {
+            border-color: #ff69b4;
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.1), rgba(128, 0, 128, 0.1));
+        }
+        
+        .theory-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        
+        .vitalism .theory-title {
+            color: #32cd32;
+        }
+        
+        .animism .theory-title {
+            color: #ff69b4;
+        }
+        
+        .theory-subtitle {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        .theory-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .example-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid;
+            transition: transform 0.3s ease;
+        }
+        
+        .example-card:hover {
+            transform: translateX(10px);
+        }
+        
+        .vitalism .example-card {
+            border-left-color: #32cd32;
+        }
+        
+        .animism .example-card {
+            border-left-color: #ff69b4;
+        }
+        
+        .example-name {
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        
+        .example-description {
+            line-height: 1.5;
+            color: #e0e0e0;
+        }
+        
+        .critique {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #ff4500;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .old-covenant {
+            background: linear-gradient(45deg, rgba(139, 69, 19, 0.3), rgba(160, 82, 45, 0.3));
+            border: 3px solid #cd853f;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .old-covenant::before {
+            content: "🤝";
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 2.5rem;
+        }
+        
+        .anthropocentric-illusion {
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.1));
+            border: 3px solid #ffa500;
+            border-radius: 25px;
+            padding: 40px;
+            margin: 50px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .anthropocentric-illusion::before {
+            content: "👑";
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 3rem;
+            animation: rotate 4s linear infinite;
+        }
+        
+        .scientific-solution {
+            background: linear-gradient(45deg, rgba(0, 191, 255, 0.2), rgba(30, 144, 255, 0.2));
+            border: 3px solid #1e90ff;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .scientific-solution::before {
+            content: "🔬";
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2.5rem;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .flow-step {
+            background: rgba(30, 144, 255, 0.2);
+            border: 2px solid #1e90ff;
+            border-radius: 15px;
+            padding: 15px 20px;
+            text-align: center;
+            min-width: 140px;
+            font-weight: bold;
+        }
+        
+        .arrow {
+            font-size: 2.5rem;
+            color: #ffd700;
+            font-weight: bold;
+        }
+        
+        .key-insight {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 165, 0, 0.2));
+            border: 4px solid #ffd700;
+            border-radius: 25px;
+            padding: 40px;
+            margin: 50px 0;
+            text-align: center;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            position: relative;
+        }
+        
+        .key-insight::before {
+            content: "💡";
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            font-size: 3rem;
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        .highlight {
+            color: #ffd700;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .failure-examples {
+            background: rgba(139, 0, 0, 0.2);
+            border: 2px solid #dc143c;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .failure-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .failure-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #dc143c;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 215, 0, 1); }
+        }
+        
+        @media (max-width: 768px) {
+            .theory-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">VITALISMS AND ANIMISMS</h1>
+        <h2 style="text-align: center; font-size: 1.8rem; color: #daa520; margin-bottom: 20px; letter-spacing: 2px;">Chapter II</h2>
+        <p class="subtitle">The Battle Over Life's Ultimate Explanation</p>
+        
+        <div class="central-dilemma">
+            <h2 style="color: #ff6b35; margin-bottom: 20px;">THE FUNDAMENTAL DILEMMA</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">Which comes first in living beings?</p>
+            
+            <div class="dilemma-content">
+                <div class="concept-box">
+                    <h3 style="color: #1e90ff;">INVARIANCE</h3>
+                    <p>Ability to maintain and reproduce structure</p>
+                </div>
+                
+                <div class="vs">VS</div>
+                
+                <div class="concept-box">
+                    <h3 style="color: #ff6b35;">TELEONOMY</h3>
+                    <p>Goal-directed, purposive behavior</p>
+                </div>
+            </div>
+            
+            <p style="font-style: italic; margin-top: 20px;">
+                This priority relationship determines your entire worldview about life, consciousness, and humanity's place in the universe.
+            </p>
+        </div>
+
+        <div class="theory-grid">
+            <div class="theory-section vitalism">
+                <h2 class="theory-title">🌱 VITALISM</h2>
+                <p class="theory-subtitle">"Teleonomic principle operates only in living matter"</p>
+                
+                <div class="theory-examples">
+                    <div class="example-card">
+                        <div class="example-name">Metaphysical Vitalism (Bergson)</div>
+                        <div class="example-description">
+                            Life as <span class="highlight">"élan vital"</span> - a creative force distinct from matter. Evolution has no goal but pure creative spontaneity.
+                        </div>
+                        <div class="critique">
+                            <strong>Problem:</strong> Not scientifically discussable; relies on "intuition" over rational analysis.
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-name">Scientistic Vitalism (Elsässer, Polanyi)</div>
+                        <div class="example-description">
+                            Physical laws insufficient; additional <span class="highlight">"biotonic laws"</span> operate in living systems.
+                        </div>
+                        <div class="critique">
+                            <strong>Problem:</strong> Based on ignorance rather than evidence. Shrinks as molecular biology advances.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="theory-section animism">
+                <h2 class="theory-title">🌌 ANIMISM</h2>
+                <p class="theory-subtitle">"Universal teleonomic principle governs entire cosmos"</p>
+                
+                <div class="theory-examples">
+                    <div class="example-card">
+                        <div class="example-name">Scientific Progressism (Spencer)</div>
+                        <div class="example-description">
+                            Universal evolutionary force creates order. Human history extends cosmic evolution.
+                        </div>
+                        <div class="critique">
+                            <strong>Problem:</strong> Abandons objectivity by inserting purpose into nature.
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-name">Teilhard de Chardin</div>
+                        <div class="example-description">
+                            Two vectors of energy (ordinary & spiritual) evolving toward <span class="highlight">"point omega"</span>.
+                        </div>
+                        <div class="critique">
+                            <strong>Problem:</strong> "Intellectual spinelessness" and systematic compromise with science.
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-name">Dialectical Materialism (Marx & Engels)</div>
+                        <div class="example-description">
+                            Hegel's dialectical laws of mind applied to material universe. Reality itself is dialectical.
+                        </div>
+                        <div class="critique">
+                            <strong>Problem:</strong> Massive animist projection violating scientific objectivity.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="old-covenant">
+            <h3 style="color: #cd853f; margin-bottom: 20px; margin-left: 60px;">The "Old Covenant"</h3>
+            <p style="line-height: 1.6;">
+                For millennia, humans lived under an <span class="highlight">ancient alliance with nature</span> where everything had purpose and meaning. Natural phenomena were explained by the same principles as human conscious activity. This created existential comfort by making the universe comprehensible and morally meaningful - <strong>but at the cost of objective truth</strong>.
+            </p>
+        </div>
+
+        <div class="failure-examples">
+            <h3 style="color: #dc143c; text-align: center; margin-bottom: 20px;">
+                📉 When Ideology Meets Science: Consistent Failures
+            </h3>
+            <div class="failure-list">
+                <div class="failure-item">
+                    <strong>Engels:</strong> Rejected thermodynamics and natural selection
+                </div>
+                <div class="failure-item">
+                    <strong>Lenin:</strong> Attacked quantum mechanics epistemology
+                </div>
+                <div class="failure-item">
+                    <strong>Lysenko:</strong> Denied genetics as "idealist"
+                </div>
+                <div class="failure-item">
+                    <strong>Pattern:</strong> Ideology consistently conflicts with discovery
+                </div>
+            </div>
+        </div>
+
+        <div class="anthropocentric-illusion">
+            <h3 style="color: #ffa500; margin-bottom: 25px; margin-right: 80px;">The Anthropocentric Illusion</h3>
+            <p style="font-size: 1.2rem; line-height: 1.7;">
+                Humans desperately want to be <span class="highlight">necessary</span> rather than <span class="highlight">contingent</span>. 
+                Evolution initially seemed to confirm our centrality as the "natural heir" of cosmic development. 
+                But the reality is stark: <strong>we are compatible with physical laws but not deducible from them</strong>. 
+                We are no more "inevitable" than any particular configuration of atoms.
+            </p>
+        </div>
+
+        <div class="scientific-solution">
+            <h3 style="color: #1e90ff; margin-bottom: 25px; margin-right: 60px;">Monod's Scientific Alternative</h3>
+            <p style="margin-bottom: 25px;">
+                Only one theory preserves scientific objectivity while explaining life's apparent purposiveness:
+            </p>
+            
+            <div class="flow-diagram">
+                <div class="flow-step">Invariance<br/>First</div>
+                <div class="arrow">→</div>
+                <div class="flow-step">Random<br/>Mutations</div>
+                <div class="arrow">→</div>
+                <div class="flow-step">Natural<br/>Selection</div>
+                <div class="arrow">→</div>
+                <div class="flow-step">Apparent<br/>Purpose</div>
+            </div>
+            
+            <p style="text-align: center; font-style: italic; margin-top: 20px;">
+                <span class="highlight">Purpose emerges from purposeless processes</span> - no initial teleonomic principle required!
+            </p>
+        </div>
+
+        <div class="key-insight">
+            <h3 style="color: #ffd700; margin-bottom: 25px; margin-left: 80px;">The Crucial Insight</h3>
+            <p>
+                <strong>ALL non-scientific worldviews make the same fundamental error:</strong> 
+                they assume an initial <span class="highlight">teleonomic principle</span> that explains invariance and guides evolution. 
+                This violates the postulate of objectivity and leads to various forms of 
+                <span class="highlight">animist projection</span> - attributing purpose, consciousness, or design to nature itself.
+            </p>
+            <br>
+            <p style="border-top: 2px solid #ffd700; padding-top: 20px; margin-top: 20px;">
+                The only scientifically valid approach recognizes that <strong>apparent purpose emerges from purposeless processes</strong> 
+                through variation and selection operating on replicative structures.
+            </p>
+        </div>
+
+        <div class="sufficient-not-necessary" style="background: linear-gradient(135deg, rgba(128, 0, 128, 0.3), rgba(75, 0, 130, 0.2)); border: 4px solid #9370db; border-radius: 25px; padding: 40px; margin: 50px 0; position: relative;">
+            <div style="position: absolute; top: 20px; right: 25px; font-size: 3rem;">🎭</div>
+            <h3 style="color: #dda0dd; margin-bottom: 30px; font-size: 2rem; text-align: center;">
+                The Unbearable Truth: Sufficient but Not Necessary
+            </h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0;">
+                <div style="background: rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 25px; border-left: 5px solid #32cd32;">
+                    <h4 style="color: #32cd32; margin-bottom: 15px; text-align: center;">✅ SUFFICIENT</h4>
+                    <p style="line-height: 1.6; text-align: center;">
+                        The physical laws of the universe are <span class="highlight">completely adequate</span> to explain human existence. 
+                        No additional principles, forces, or purposes are needed.
+                    </p>
+                </div>
+                
+                <div style="background: rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 25px; border-left: 5px solid #ff4500;">
+                    <h4 style="color: #ff4500; margin-bottom: 15px; text-align: center;">❌ NOT NECESSARY</h4>
+                    <p style="line-height: 1.6; text-align: center;">
+                        Nothing in those same laws <span class="highlight">requires</span> human existence. 
+                        We could have <strong>never existed</strong> without violating any principle of physics.
+                    </p>
+                </div>
+            </div>
+            
+            <div style="background: rgba(0, 0, 0, 0.3); border-radius: 15px; padding: 25px; margin-top: 30px;">
+                <h4 style="color: #dda0dd; text-align: center; margin-bottom: 20px;">Monod's Devastating Analogy</h4>
+                <blockquote style="font-style: italic; font-size: 1.1rem; line-height: 1.7; text-align: center; border-left: 4px solid #9370db; padding-left: 20px; margin: 0;">
+                    "No one will find fault with a universal theory for not affirming and foreseeing the existence of this particular configuration of atoms [in a pebble]; it is enough for us that this actual object, unique and real, be <span style="color: #ffd700;">compatible with the theory</span>. This object, according to the theory, is <span style="color: #ffd700;">under no obligation to exist; but it has the right to</span>."
+                </blockquote>
+                <p style="text-align: center; margin-top: 20px; color: #ff6b35; font-weight: bold;">
+                    That is enough for us as concerns the pebble, but <strong>not as concerns ourselves</strong>.
+                </p>
+            </div>
+        </div>
+
+        <div style="background: linear-gradient(45deg, rgba(139, 0, 0, 0.4), rgba(178, 34, 34, 0.3)); border: 3px solid #dc143c; border-radius: 20px; padding: 35px; margin: 40px 0; position: relative;">
+            <div style="position: absolute; top: 15px; left: 20px; font-size: 3rem;">💔</div>
+            <h3 style="color: #ff6b6b; margin-bottom: 25px; margin-left: 60px;">Why This Conclusion Is So Devastating</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+                <div style="background: rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 20px;">
+                    <h4 style="color: #ffd700; margin-bottom: 15px;">🏛️ For Classical Philosophy</h4>
+                    <p style="line-height: 1.5;">
+                        From Plato to Hegel, all major systems assumed humans represent the <span class="highlight">culmination</span> or <span class="highlight">goal</span> of cosmic development. We were the universe becoming conscious of itself.
+                    </p>
+                </div>
+                
+                <div style="background: rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 20px;">
+                    <h4 style="color: #ffd700; margin-bottom: 15px;">✝️ For Religious Worldviews</h4>
+                    <p style="line-height: 1.5;">
+                        Humans as the <span class="highlight">crown of creation</span>, made in God's image, central to divine purpose. Our existence validates the entire cosmic plan.
+                    </p>
+                </div>
+                
+                <div style="background: rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 20px;">
+                    <h4 style="color: #ffd700; margin-bottom: 15px;">🚩 For Marxist Materialism</h4>
+                    <p style="line-height: 1.5;">
+                        Human consciousness as the <span class="highlight">inevitable product</span> of dialectical evolution. History has direction, and we are its destined endpoint.
+                    </p>
+                </div>
+                
+                <div style="background: rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 20px;">
+                    <h4 style="color: #ffd700; margin-bottom: 15px;">🧬 For Progressive Evolutionism</h4>
+                    <p style="line-height: 1.5;">
+                        Evolution as <span class="highlight">progressive advance</span> toward higher consciousness. We represent the universe's inevitable self-awareness.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, rgba(25, 25, 112, 0.4), rgba(0, 0, 139, 0.3)); border: 3px solid #4169e1; border-radius: 20px; padding: 35px; margin: 40px 0; position: relative;">
+            <div style="position: absolute; top: 15px; right: 20px; font-size: 3rem; animation: pulse 3s infinite;">🌌</div>
+            <h3 style="color: #87ceeb; margin-bottom: 25px;">The Profound Implications</h3>
+            
+            <div style="background: rgba(0, 0, 0, 0.3); border-radius: 15px; padding: 25px; margin: 20px 0;">
+                <h4 style="color: #add8e6; margin-bottom: 15px;">🎲 We Are Cosmic Lottery Winners</h4>
+                <p style="line-height: 1.6;">
+                    Like "the person who has just made a million at the casino, we feel <span class="highlight">strange and a little unreal</span>." 
+                    Our existence is not a vindication of cosmic purpose but an <strong>astronomical improbability</strong> that happened to occur.
+                </p>
+            </div>
+            
+            <div style="background: rgba(0, 0, 0, 0.3); border-radius: 15px; padding: 25px; margin: 20px 0;">
+                <h4 style="color: #add8e6; margin-bottom: 15px;">🏜️ The Universe Is Indifferent</h4>
+                <p style="line-height: 1.6;">
+                    We live "on the boundary of an <span class="highlight">alien world</span>. A world that is deaf to [our] music, 
+                    just as indifferent to [our] hopes as it is to [our] suffering or [our] crimes." 
+                    The universe owes us nothing and expects nothing from us.
+                </p>
+            </div>
+            
+            <div style="background: rgba(0, 0, 0, 0.3); border-radius: 15px; padding: 25px; margin: 20px 0;">
+                <h4 style="color: #add8e6; margin-bottom: 15px;">💀 Existential Solitude</h4>
+                <p style="line-height: 1.6;">
+                    "Man knows at last that he is <span class="highlight">alone in the universe's unfeeling immensity</span>, 
+                    out of which he emerged only by chance. His destiny is nowhere spelled out, nor is his duty."
+                </p>
+            </div>
+        </div>
+
+        <div style="background: linear-gradient(45deg, rgba(255, 215, 0, 0.3), rgba(255, 140, 0, 0.2)); border: 4px solid #ffa500; border-radius: 25px; padding: 40px; margin: 50px 0; text-align: center; position: relative;">
+            <div style="position: absolute; top: 20px; left: 25px; font-size: 3rem; animation: glow 3s ease-in-out infinite;">⚖️</div>
+            <h3 style="color: #1e90ff; margin-bottom: 25px; margin-left: 80px; font-size: 2.2rem; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.6);">The Ultimate Challenge</h3>
+            <p style="font-size: 1.3rem; line-height: 1.8;">
+                If we are merely <span class="highlight">sufficient but not necessary</span>, then all meaning, purpose, and value 
+                must come from <strong>human choice</strong> rather than cosmic validation. This is simultaneously 
+                <span style="color: #dc143c; font-weight: bold;">terrifying</span> (no external guarantee of significance) and 
+                <span style="color: #00ff7f; font-weight: bold;">liberating</span> (we are the authors of our own meaning).
+            </p>
+            <div style="border-top: 3px solid #ffa500; margin-top: 30px; padding-top: 25px;">
+                <p style="font-size: 1.1rem; font-style: italic;">
+                    "The kingdom above or the darkness below: <span class="highlight">it is for him to choose</span>."
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
