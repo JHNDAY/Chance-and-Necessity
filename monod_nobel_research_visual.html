@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monod's Nobel Prize Research</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nobel-info {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #FFD700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .shared-with {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 15px 0;
+        }
+
+        .scientist {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .main-discoveries {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .discovery-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discovery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .discovery-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-color);
+        }
+
+        .lac-operon {
+            --accent-color: #4ECDC4;
+        }
+
+        .gene-regulation {
+            --accent-color: #FF6B6B;
+        }
+
+        .mrna-discovery {
+            --accent-color: #45B7D1;
+        }
+
+        .negative-regulation {
+            --accent-color: #96CEB4;
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            font-size: 1.2em;
+        }
+
+        .mechanism-visual {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border: 2px dashed var(--accent-color);
+        }
+
+        .dna-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .dna-element {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .arrow {
+            font-size: 1.5em;
+            color: #FFD700;
+        }
+
+        .impact-section {
+            background: linear-gradient(135deg, rgba(75, 0, 130, 0.3), rgba(138, 43, 226, 0.2));
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(138, 43, 226, 0.5);
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .impact-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border-left: 4px solid #8A2BE2;
+            transition: transform 0.3s ease;
+        }
+
+        .impact-item:hover {
+            transform: scale(1.05);
+        }
+
+        .impact-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .quote-section {
+            background: rgba(255, 69, 0, 0.2);
+            border-left: 5px solid #FF4500;
+            padding: 25px;
+            border-radius: 15px;
+            font-style: italic;
+            font-size: 1.2em;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .research-approach {
+            background: rgba(34, 139, 34, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            border: 2px solid rgba(34, 139, 34, 0.5);
+        }
+
+        .approach-steps {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 150px;
+            margin: 10px;
+            border-top: 3px solid #228B22;
+        }
+
+        .step-number {
+            background: #228B22;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 10px;
+        }
+
+        .floating-dna {
+            position: absolute;
+            font-size: 2em;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-dna:nth-child(odd) {
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .timeline-marker {
+            background: #FFD700;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .main-discoveries {
+                grid-template-columns: 1fr;
+            }
+            
+            .shared-with {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .dna-flow {
+                flex-direction: column;
+            }
+            
+            .approach-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="floating-dna" style="top: 10%; left: 5%;">🧬</div>
+        <div class="floating-dna" style="top: 70%; right: 10%;">🧬</div>
+        <div class="floating-dna" style="top: 40%; left: 80%;">🧬</div>
+
+        <div class="header">
+            <h1>Monod's Nobel Prize Research</h1>
+            <h2 style="color: #E6E6FA; font-size: 1.3em;">Genetic Control of Enzyme Synthesis</h2>
+        </div>
+
+        <div class="nobel-info">
+            <div style="font-size: 1.1em; margin-bottom: 15px;">
+                <span class="timeline-marker">🏆 1965</span> 
+                <strong>Nobel Prize in Physiology or Medicine</strong>
+            </div>
+            <div style="font-style: italic; margin-bottom: 15px;">
+                "for their discoveries concerning genetic control of enzyme and virus synthesis"
+            </div>
+            <div class="shared-with">
+                <div class="scientist">🧬 François Jacob</div>
+                <div class="scientist">🦠 André Lwoff</div>
+                <div class="scientist">🏆 Jacques Monod</div>
+            </div>
+        </div>
+
+        <div class="main-discoveries">
+            <div class="discovery-card lac-operon">
+                <div class="card-title">
+                    <span class="card-icon">🔬</span>
+                    The Lac Operon System
+                </div>
+                <p><strong>Discovery:</strong> How E. coli bacteria control enzyme production for lactose digestion</p>
+                
+                <div class="mechanism-visual">
+                    <strong>Smart Bacterial "Decision Making"</strong>
+                    <br><br>
+                    <div style="background: rgba(76, 205, 196, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">
+                        🥛 <strong>Lactose Present:</strong> Enzymes ON → Digest sugar
+                    </div>
+                    <div style="background: rgba(76, 205, 196, 0.1); padding: 10px; border-radius: 8px;">
+                        🚫 <strong>No Lactose:</strong> Enzymes OFF → Save energy
+                    </div>
+                </div>
+                
+                <p>• Genes organized in clusters called "operons"</p>
+                <p>• Bacteria respond intelligently to nutrients</p>
+                <p>• Foundation of gene regulation</p>
+            </div>
+
+            <div class="discovery-card gene-regulation">
+                <div class="card-title">
+                    <span class="card-icon">🎛️</span>
+                    Gene Regulation Mechanism
+                </div>
+                <p><strong>Revolutionary Find:</strong> Repressor proteins act as molecular switches</p>
+                
+                <div class="mechanism-visual">
+                    <strong>The Molecular Switch</strong>
+                    <br><br>
+                    <div style="display: flex; justify-content: space-around; align-items: center;">
+                        <div style="text-align: center;">
+                            <div style="background: #FF6B6B; padding: 8px; border-radius: 5px; margin: 5px;">🔒 BLOCKED</div>
+                            <small>Repressor ON</small>
+                        </div>
+                        <div style="font-size: 1.5em;">⚡</div>
+                        <div style="text-align: center;">
+                            <div style="background: #4ECDC4; padding: 8px; border-radius: 5px; margin: 5px;">✅ ACTIVE</div>
+                            <small>Repressor OFF</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <p>• Discovered negative gene control</p>
+                <p>• Repressor binds to DNA, blocks production</p>
+                <p>• Lactose inactivates repressor</p>
+            </div>
+
+            <div class="discovery-card mrna-discovery">
+                <div class="card-title">
+                    <span class="card-icon">📡</span>
+                    Messenger RNA Discovery
+                </div>
+                <p><strong>Central Dogma:</strong> Proved mRNA carries genetic information</p>
+                
+                <div class="mechanism-visual">
+                    <div class="dna-flow">
+                        <div class="dna-element">DNA</div>
+                        <div class="arrow">→</div>
+                        <div class="dna-element">mRNA</div>
+                        <div class="arrow">→</div>
+                        <div class="dna-element">Protein</div>
+                    </div>
+                    <small><em>Information Flow in All Living Cells</em></small>
+                </div>
+                
+                <p>• mRNA = molecular messenger</p>
+                <p>• Bridges DNA and protein synthesis</p>
+                <p>• Universal biological principle</p>
+            </div>
+
+            <div class="discovery-card negative-regulation">
+                <div class="card-title">
+                    <span class="card-icon">🛑</span>
+                    Negative Gene Regulation
+                </div>
+                <p><strong>Paradigm Shift:</strong> Genes can be actively "turned off"</p>
+                
+                <div class="mechanism-visual">
+                    <strong>Dynamic Gene Control</strong>
+                    <br><br>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div style="background: rgba(150, 206, 180, 0.3); padding: 10px; border-radius: 8px;">
+                            <div>🌊 Environment Changes</div>
+                        </div>
+                        <div style="background: rgba(150, 206, 180, 0.3); padding: 10px; border-radius: 8px;">
+                            <div>⚡ Gene Response</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <p>• Cells actively control gene expression</p>
+                <p>• Responsive to environmental conditions</p>
+                <p>• Revolutionary biological concept</p>
+            </div>
+        </div>
+
+        <div class="quote-section">
+            <div style="font-size: 2em; margin-bottom: 10px;">💬</div>
+            "Anything found to be true of E. coli must also be true of elephants"
+            <br><br>
+            <strong>— Jacques Monod</strong>
+            <br><small>(Predicting universal applicability of bacterial discoveries)</small>
+        </div>
+
+        <div class="impact-section">
+            <h2 style="text-align: center; margin-bottom: 20px; font-size: 1.8em;">🌟 Broader Impact & Legacy</h2>
+            
+            <div class="impact-grid">
+                <div class="impact-item">
+                    <div class="impact-icon">🧬</div>
+                    <h3>Founded Molecular Biology</h3>
+                    <p>Established core principles still used in research today</p>
+                </div>
+                
+                <div class="impact-item">
+                    <div class="impact-icon">🏥</div>
+                    <h3>Medical Significance</h3>
+                    <p>Understanding genetic diseases, cancer, and development</p>
+                </div>
+                
+                <div class="impact-item">
+                    <div class="impact-icon">🔬</div>
+                    <h3>Biotechnology Foundation</h3>
+                    <p>Enabled genetic engineering & pharmaceutical development</p>
+                </div>
+                
+                <div class="impact-item">
+                    <div class="impact-icon">🌍</div>
+                    <h3>Universal Principles</h3>
+                    <p>From bacteria to humans - fundamental life processes</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="research-approach">
+            <h2 style="text-align: center; margin-bottom: 20px; font-size: 1.6em;">🔬 Research Approach</h2>
+            <p style="text-align: center; margin-bottom: 20px;">
+                <strong>Elegant bacterial genetics experiments that revealed fundamental principles of life</strong>
+            </p>
+            
+            <div class="approach-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <strong>Simple System</strong>
+                    <p>Used E. coli bacteria - easy to study</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <strong>Clear Question</strong>
+                    <p>How do cells control enzyme production?</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <strong>Clever Experiments</strong>
+                    <p>Tested with/without lactose conditions</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <strong>Universal Impact</strong>
+                    <p>Principles apply to all life forms</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 25px; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 10px;">
+                <strong style="font-size: 1.1em;">🎯 Result:</strong> Transformed our understanding of how life itself is controlled at the molecular level
+            </div>
+        </div>
+    </div>
+</body>
+</html>
